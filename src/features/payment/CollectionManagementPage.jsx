@@ -71,7 +71,6 @@ function CollectionManagementPage() {
 
     // storeSeq가 없으면 API 호출 중단
     if (!storeSeq) {
-      console.log('선택된 매장 없음');
       return;
     }
 
@@ -293,12 +292,11 @@ function CollectionManagementPage() {
             <div className="space-y-3">
               {depositAccounts.length === 0 ? (
                 // 입금 내역이 없을 때 표시
-                <p className="rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-400">
-                  입금 내역이 없습니다.
-                </p>
+                (<p className="rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-400">입금 내역이 없습니다.
+                                  </p>)
               ) : (
                 // 입금 내역이 있을 때 목록 출력
-                depositAccounts.map((item, index) => (
+                (depositAccounts.map((item, index) => (
                   <div
                     key={`${item.bank || 'bank'}-${index}`}
                     className="flex flex-col gap-3 rounded-2xl bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between"
@@ -319,7 +317,7 @@ function CollectionManagementPage() {
                       <p className="mt-1 text-xs text-slate-400">{item.date || '-'}</p>
                     </div>
                   </div>
-                ))
+                )))
               )}
             </div>
 
@@ -378,14 +376,14 @@ function CollectionManagementPage() {
               <tbody className="divide-y divide-slate-100">
                 {filteredRows.length === 0 ? (
                   // 수금 이력이 없을 때 표시
-                  <tr>
+                  (<tr>
                     <td colSpan="6" className="px-6 py-10 text-center text-sm font-bold text-slate-400">
                       수금 내역이 없습니다.
                     </td>
-                  </tr>
+                  </tr>)
                 ) : (
                   // 수금 이력이 있을 때 테이블 행 출력
-                  filteredRows.map((row) => {
+                  (filteredRows.map((row) => {
                     // 상태별 배지 스타일 지정
                     const statusStyle = {
                       입금완료: 'bg-emerald-50 text-emerald-700',
@@ -412,14 +410,13 @@ function CollectionManagementPage() {
                         </td>
                       </tr>
                     );
-                  })
+                  }))
                 )}
               </tbody>
             </table>
           </div>
         </section>
       </main>
-
       {/* 공통 Footer 출력 */}
       <MainFooter />
     </div>

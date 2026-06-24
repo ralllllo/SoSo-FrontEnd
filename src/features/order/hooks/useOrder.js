@@ -57,7 +57,6 @@ const getStatusValue = (status) => {
 
   // 검색
   const fetchSearch = async () => {
-    console.log('검색어:', keyword);
     fetchOrderList(keyword);
   };
 
@@ -97,7 +96,6 @@ const getStatusValue = (status) => {
     const storeSeq = Number(localStorage.getItem('storeSeq'));
 
     if (!storeSeq) {
-      console.log('storeSeq 없음');
       setOrders([]);
       return;
     }
@@ -112,18 +110,6 @@ const getStatusValue = (status) => {
       startDate,
       endDate
     );
-
-    console.log('발주 목록 조회 조건:', {
-      storeSeq,
-      searchKeyword,
-      status,
-      startDate,
-      endDate,
-    });
-
-
-
-    console.log('발주 목록 조회 결과:', data);
 
     setOrders(Array.isArray(data) ? data : []);
   } catch (error) {

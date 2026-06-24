@@ -245,14 +245,12 @@ const handleExportCsv = async () => {
   const storeSeq = Number(localStorage.getItem("storeSeq"));
 
   if (!storeSeq) {
-    console.log("선택된 매장 없음");
     return;
   }
 
   try {
     // 전체 월 지출
     const monthlyTotal = await getExpenseTotal(storeSeq, selectedMonth);
-    console.log("전체 월 지출 응답:", monthlyTotal);
 
     setTotalAmount(
       typeof monthlyTotal === "object"
@@ -262,7 +260,6 @@ const handleExportCsv = async () => {
 
     // 카테고리별 월 지출
     const categoryResult = await categoryCost(storeSeq, selectedMonth);
-    console.log("카테고리별 지출 응답:", categoryResult);
 
     const safeCategoryResult = Array.isArray(categoryResult)
       ? categoryResult
@@ -302,8 +299,6 @@ const handleExportCsv = async () => {
         count: Number(count || 0),
       };
     });
-
-    console.log("합쳐진 카테고리:", mergedCategories);
 
     setExpenseCategoryTotals(safeCategoryResult);
     setLocalCategories(mergedCategories);
@@ -457,7 +452,6 @@ const handleRemoveDirectPurchaseRow = (index) => {
     const storeSeq = Number(localStorage.getItem("storeSeq"));
 
     if (!storeSeq) {
-      console.log("선택된 매장 없음");
       return;
     }
 
@@ -492,7 +486,6 @@ useEffect(() => {
     const storeSeq = Number(localStorage.getItem("storeSeq"));
 
     if (!storeSeq) {
-      console.log("선택된 매장 없음");
       return;
     }
 

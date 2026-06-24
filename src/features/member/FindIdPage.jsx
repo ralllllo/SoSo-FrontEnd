@@ -51,7 +51,7 @@ const FindIdPage = () => {
 
         {!isFound ? (
           /* 1단계: 정보 입력 및 인증 단계 */
-          <div className="space-y-6 pt-2">
+          (<div className="space-y-6 pt-2">
             {/* 이름 입력 */}
             <div>
               <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-2 ml-1">
@@ -79,7 +79,6 @@ const FindIdPage = () => {
                 </p>
               )}
             </div>
-
             {/* 이메일 입력 */}
             <div>
               <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-2 ml-1">
@@ -107,7 +106,6 @@ const FindIdPage = () => {
                 </p>
               )}
             </div>
-
             {/* 아이디 찾기 (인증번호 발송) 버튼 */}
             <div className="pt-2">
               <button
@@ -121,7 +119,6 @@ const FindIdPage = () => {
                 {isVerifying ? '인증번호 재발송' : '인증번호 전송'}
               </button>
             </div>
-
             {/* 2단계: 이메일 인증 영역 */}
             {isVerifying && (
               <div className="space-y-4 pt-4 border-t border-gray-100 animate-in fade-in slide-in-from-top-2 duration-500">
@@ -163,7 +160,6 @@ const FindIdPage = () => {
                 </div>
               </div>
             )}
-
             <div className="text-center pt-2">
               <button 
                 type="button"
@@ -173,10 +169,10 @@ const FindIdPage = () => {
                 로그인 화면으로 돌아가기
               </button>
             </div>
-          </div>
+          </div>)
         ) : (
           /* 3단계: 최종 결과 단계 */
-          <div className="space-y-6 -mt-3 animate-in fade-in zoom-in-95 duration-500">
+          (<div className="space-y-6 -mt-3 animate-in fade-in zoom-in-95 duration-500">
             <div className="bg-gray-50 rounded-2xl p-8 text-center border border-gray-100 flex flex-col items-center justify-center">
               <p className="text-gray-500 font-bold text-[16px] mb-4">고객님의 아이디는 다음과 같습니다.</p>
               <div className="py-4 px-10 bg-white rounded-xl border border-gray-200 shadow-sm inline-block">
@@ -185,7 +181,6 @@ const FindIdPage = () => {
                 </span>
               </div>
             </div>
-
             <div className="space-y-4">
               <button
                 type="button"
@@ -204,7 +199,7 @@ const FindIdPage = () => {
                 비밀번호 찾기
               </button>
             </div>
-          </div>
+          </div>)
         )}
       </div>
     </div>

@@ -20,9 +20,8 @@ const [categories, setCategories] = useState([]);
     if (isOpen) {
       // 카테고리 목록을 가져오는 API (백엔드에 GET /api/categories 가 있다고 가정)
       getCategories().then(response => {
-        console.log(response)
-          setCategories(response); // 예: [{ category_seq: 1, category_name: '육류' }, ...]
-        })
+        setCategories(response); // 예: [{ category_seq: 1, category_name: '육류' }, ...]
+      })
         .catch(error => {
           console.error('카테고리 목록을 불러오는데 실패했습니다.', error);
         });

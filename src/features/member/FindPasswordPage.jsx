@@ -62,7 +62,7 @@ const FindPasswordPage = () => {
 
         {!isResetStep ? (
           /* 1단계 & 2단계: 정보 입력 및 이메일 인증 */
-          <div className="space-y-6 pt-0">
+          (<div className="space-y-6 pt-0">
             {/* 이름 입력 */}
             <div>
               <label htmlFor="userId" className="block text-sm font-bold text-gray-700 mb-2 ml-1">
@@ -90,7 +90,6 @@ const FindPasswordPage = () => {
                 </p>
               )}
             </div>
-
             {/* 이메일 입력 */}
             <div>
               <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-2 ml-1">
@@ -118,7 +117,6 @@ const FindPasswordPage = () => {
                 </p>
               )}
             </div>
-
             {/* 비밀번호 찾기(인증번호 발송) 버튼 */}
             <div className="pt-2">
               <button
@@ -131,7 +129,6 @@ const FindPasswordPage = () => {
                 {isVerifying ? '인증번호 재발송' : '비밀번호 찾기'}
               </button>
             </div>
-
             {/* 이메일 인증 영역 */}
             {isVerifying && (
               <div className="space-y-4 pt-4 border-t border-gray-100 animate-in fade-in slide-in-from-top-2 duration-500">
@@ -172,7 +169,6 @@ const FindPasswordPage = () => {
                 </div>
               </div>
             )}
-
             <div className="text-center pt-2">
               <button 
                 onClick={() => navigate('/login')}
@@ -181,10 +177,10 @@ const FindPasswordPage = () => {
                 로그인 화면으로 돌아가기
               </button>
             </div>
-          </div>
+          </div>)
         ) : (
           /* 3단계: 비밀번호 재설정 단계 (비밀번호 찾기2.jpg 참고) */
-          <div className="space-y-6 pt-0 animate-in fade-in slide-in-from-right-4 duration-500">
+          (<div className="space-y-6 pt-0 animate-in fade-in slide-in-from-right-4 duration-500">
             {/* 새 비밀번호 입력 */}
             <div>
               <label htmlFor="newPassword" className="block text-sm font-bold text-gray-700 mb-2 ml-1">
@@ -209,7 +205,6 @@ const FindPasswordPage = () => {
                 </p>
               )}
             </div>
-
             {/* 비밀번호 확인 입력 */}
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-bold text-gray-700 mb-2 ml-1">
@@ -235,7 +230,6 @@ const FindPasswordPage = () => {
                 </p>
               )}
             </div>
-
             {/* 비밀번호 저장 버튼 */}
             <div className="pt-2">
               <button
@@ -248,11 +242,10 @@ const FindPasswordPage = () => {
                 비밀번호 저장 및 로그인
               </button>
             </div>
-
             <p className="text-center text-[13px] text-gray-400 font-medium">
               비밀번호 변경 후 자동으로 로그인 페이지로 이동합니다.
             </p>
-          </div>
+          </div>)
         )}
       </div>
     </div>
