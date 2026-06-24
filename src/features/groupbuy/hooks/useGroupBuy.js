@@ -91,13 +91,15 @@ export const useGroupBuy = () => {
     // 상단바 통계용 참여 개수 조회 (독립적으로 실행)
     try {
       const countData = await groupBuyApi.getParticipatedCount();
-      // 백엔드가 숫자만 반환할 수도 있고 { count: 5 } 형태일 수도 있으므로 방어 코드 작성
-      const countVal = typeof countData === 'number' ? countData : (countData?.count || 0);
+      let countVal = 0;
+      if (typeof countData === 'object' && countData !== null) {
+        countVal = countData.count || 0;
+      } else {
+        countVal = Number(countData) || 0;
+      }
       setMyCount(countVal);
     } catch (countError) {
       console.error('Failed to fetch participated count:', countError);
-      // 백엔드 API 연결 실패 시 최신 데이터에서 추론하도록 폴백 처리
-      setMyCount(latestData.filter(i => i.isJoined).length);
     }
 
     // 상단바 통계용 전체 현황 및 완료된 그룹 수 조회
@@ -106,14 +108,16 @@ export const useGroupBuy = () => {
       const ongoing = allData.filter(i => i.status === 'RECRUITING').length;
       
       const completedData = await groupBuyApi.getCompletedCount();
-      const delivered = typeof completedData === 'number' ? completedData : (completedData?.count || 0);
+      let delivered = 0;
+      if (typeof completedData === 'object' && completedData !== null) {
+        delivered = completedData.count || 0;
+      } else {
+        delivered = Number(completedData) || 0;
+      }
       
       setGlobalStats({ ongoing, delivered });
     } catch (statsError) {
       console.error('Failed to fetch global stats:', statsError);
-      const ongoing = latestData.filter(i => i.status === 'RECRUITING').length;
-      const delivered = latestData.filter(i => i.status === 'COMPLETED').length;
-      setGlobalStats({ ongoing, delivered });
     }
   }, [filter]);
 
