@@ -71,7 +71,12 @@ export const useGroupBuy = () => {
       if (filter === 'my') {
         data = await groupBuyApi.getParticipatedGroupBuys();
       } else if (filter === 'completed') {
-        data = await groupBuyApi.getCompletedGroupBuys();
+        const participatedCompleted = await groupBuyApi.getCompletedGroupBuys();
+        const createdAll = await groupBuyApi.getCreatedGroupBuys();
+        const createdCompleted = createdAll.filter(item => item.status === 'COMPLETED');
+        const merged = [...participatedCompleted, ...createdCompleted];
+        // 중복 제거 (seq 기준)
+        data = merged.filter((v, i, a) => a.findIndex(t => (t.groupBuySeq || t.seq) === (v.groupBuySeq || v.seq)) === i);
       } else if (filter === 'created') {
         data = await groupBuyApi.getCreatedGroupBuys();
       } else {
@@ -189,8 +194,11 @@ export const useGroupBuy = () => {
     }
     
     // 2. 종류(전체, 참여, 주최자) 필터
-    if (filter === 'my' && !item.isJoined) {
-      return false;
+    if (filter === 'my') {
+      if (!item.isJoined || item.status === 'COMPLETED') return false;
+    }
+    if (filter === 'created') {
+      if (item.status === 'COMPLETED') return false;
     }
     if (filter === 'completed' && (!item.isJoined || item.status !== 'COMPLETED')) {
       return false;
