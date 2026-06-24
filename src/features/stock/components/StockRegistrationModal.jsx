@@ -49,6 +49,10 @@ const [categories, setCategories] = useState([]);
       alert('안전 재고 수량은 1개 이상으로 설정해야 합니다.');
       return;
     }
+    if (formData.defaultExpiryDays !== '' && Number(formData.defaultExpiryDays) <= 0) {
+      alert('기본 소비기한은 1일 이상으로 설정해야 합니다.');
+      return;
+    }
     onRegister(formData);
     setFormData({
       stockName: '',
@@ -150,6 +154,7 @@ const [categories, setCategories] = useState([]);
                   onChange={handleChange}
                   placeholder="0"
                   className={`${inputStyle} pr-12`}
+                  min="1"
                 />
                 <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-black text-gray-400">DAYS</span>
               </div>
