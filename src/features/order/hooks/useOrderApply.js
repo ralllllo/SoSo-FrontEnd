@@ -202,7 +202,9 @@ export const useOrderApply = () => {
       unitPrice: selectedItem.unitPrice,
       supplyValue: selectedItem.unitPrice,
       tax: Math.floor(selectedItem.unitPrice * 0.1),
-      total: Math.floor(selectedItem.unitPrice * 1.1)
+      total: Math.floor(selectedItem.unitPrice * 1.1),
+      linkedStockSeq: selectedItem.linkedStockSeq || null,
+      linkedStockName: selectedItem.linkedStockName || null,
     };
     
     // 만약 첫 번째 행이 비어있다면 해당 행을 교체, 아니면 추가
@@ -322,11 +324,12 @@ export const useOrderApply = () => {
 
       alert('발주 신청이 완료되었습니다.');
 
-      navi('/orders');
+      return true;
     } catch (error) {
     console.error('발주 신청 실패:', error);
     alert('발주 신청 중 오류가 발생했습니다.');
-  };
+    return false;
+  }
 }
 
 
