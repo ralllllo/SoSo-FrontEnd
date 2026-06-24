@@ -177,7 +177,7 @@ const GroupBuyPage = () => {
                   key={item.groupBuySeq} 
                   className={`group bg-white rounded-[24px] border-2 transition-all duration-500 flex flex-col lg:flex-row overflow-hidden hover:-translate-y-1 ${
                     item.status === 'COMPLETED'
-                      ? 'border-gray-200 bg-gray-50/80 grayscale-[20%] opacity-90 shadow-none'
+                      ? 'border-red-400 bg-gray-50/80 grayscale-[20%] opacity-90 shadow-[0_5px_15px_rgba(248,113,113,0.15)]'
                       : item.isOwner
                         ? 'border-purple-400 shadow-[0_10px_30px_rgba(168,85,247,0.15)] bg-purple-50/10'
                         : isJoined 
@@ -274,7 +274,7 @@ const GroupBuyPage = () => {
 
                   {/* 우측/하단: 결제 금액 및 액션 버튼 */}
                   <div className={`w-full lg:w-[260px] p-5 border-t lg:border-t-0 lg:border-l flex flex-col justify-center shrink-0 relative z-10 ${
-                    item.status === 'COMPLETED' ? 'bg-gray-100/50 border-gray-200' : item.isOwner ? 'bg-purple-50/50 border-purple-100' : 'bg-gray-50/50 border-gray-100'
+                    item.status === 'COMPLETED' ? 'bg-gray-100/50 border-red-200' : item.isOwner ? 'bg-purple-50/50 border-purple-100' : 'bg-gray-50/50 border-gray-100'
                   }`}>
                     {!isPartner && (
                       <div className="mb-4">
@@ -322,7 +322,7 @@ const GroupBuyPage = () => {
                         </>
                       )}
                       
-                      {isPartner && (
+                      {item.isOwner && item.status !== 'COMPLETED' && (
                         <button
                           onClick={() => {
                             setSelectedGroupBuy(item);
