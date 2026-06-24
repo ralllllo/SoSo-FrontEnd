@@ -40,7 +40,7 @@ const GroupBuyDetailPage = () => {
       } catch (error) {
         console.error('Failed to fetch group buy detail:', error);
         alert('상세 정보를 불러오는데 실패했습니다.');
-        navigate(-1);
+        navigate('/group-buy', { replace: true });
       } finally {
         setIsLoading(false);
       }
