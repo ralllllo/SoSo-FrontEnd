@@ -70,11 +70,13 @@ export const useGroupBuy = () => {
         data = await groupBuyApi.getParticipatedGroupBuys();
       } else if (filter === 'completed') {
         data = await groupBuyApi.getCompletedGroupBuys();
+      } else if (filter === 'created') {
+        data = await groupBuyApi.getCreatedGroupBuys();
       } else {
         data = await groupBuyApi.getGroupBuys(filter);
       }
       // 데이터 변환 및 기본값 설정
-      const formattedData = data.map((item, index) => mapGroupBuyData(item, index, filter === 'my' || filter === 'completed'));
+      const formattedData = data.map((item, index) => mapGroupBuyData(item, index, filter === 'my' || filter === 'completed' || filter === 'created'));
       latestData = formattedData;
       setGroupBuys(formattedData);
     } catch (error) {

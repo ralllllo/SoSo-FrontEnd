@@ -131,6 +131,14 @@ const GroupBuyPage = () => {
           >
             완료된 그룹
           </button>
+          <button
+            onClick={() => setFilter('created')}
+            className={`px-6 sm:px-8 py-3 rounded-[16px] text-sm font-black transition-all ${
+              filter === 'created' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-100' : 'text-gray-400 hover:text-gray-600'
+            }`}
+          >
+            내가 개설한 그룹
+          </button>
           {/* 나중에 구현할 예정 (사업자 주관, 거래처 주관 필터)
           <button
             onClick={() => setFilter('business')}

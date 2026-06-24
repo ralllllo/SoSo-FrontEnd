@@ -52,6 +52,14 @@ export const groupBuyApi = {
   },
 
   /**
+   * 내가 직접 개설한 그룹 리스트 조회
+   */
+  getCreatedGroupBuys: async () => {
+    const response = await axiosInstance.get(`${GROUP_BUY_BASE_URL}/created`);
+    return response.data;
+  },
+
+  /**
    * 공동구매 상세 조회
    * @param {number} seq - 공동구매 시퀀스 번호
    */
