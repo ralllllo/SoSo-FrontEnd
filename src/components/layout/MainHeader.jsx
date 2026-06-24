@@ -65,7 +65,7 @@ function MainHeader({ activeMenu = '홈' }) {
 
     setIsProfileOpen(false);
 
-    navigate('/business-mypage');
+    // navigate('/business-mypage');
 
     setIsProfileOpen(false);
   };
