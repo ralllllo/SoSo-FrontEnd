@@ -220,7 +220,7 @@ const GroupBuyDeliveryPage = () => {
               </div>
             </section>
 
-            {/* 함께 참여 중인 멤버 */}
+            {/* 함께 참여 중인 멤버 (임시 주석 처리)
             <section className="space-y-4">
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-1 h-3 bg-emerald-500 rounded-full"></span>
@@ -244,6 +244,7 @@ const GroupBuyDeliveryPage = () => {
                 ))}
               </div>
             </section>
+            */}
 
           </div>
         </div>
