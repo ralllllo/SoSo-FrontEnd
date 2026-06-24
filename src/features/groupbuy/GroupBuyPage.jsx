@@ -124,20 +124,20 @@ const GroupBuyPage = () => {
             나의 참여 그룹
           </button>
           <button
-            onClick={() => setFilter('completed')}
-            className={`px-6 sm:px-8 py-3 rounded-[16px] text-sm font-black transition-all ${
-              filter === 'completed' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-100' : 'text-gray-400 hover:text-gray-600'
-            }`}
-          >
-            완료된 그룹
-          </button>
-          <button
             onClick={() => setFilter('created')}
             className={`px-6 sm:px-8 py-3 rounded-[16px] text-sm font-black transition-all ${
               filter === 'created' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-100' : 'text-gray-400 hover:text-gray-600'
             }`}
           >
             내가 개설한 그룹
+          </button>
+          <button
+            onClick={() => setFilter('completed')}
+            className={`px-6 sm:px-8 py-3 rounded-[16px] text-sm font-black transition-all ${
+              filter === 'completed' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-100' : 'text-gray-400 hover:text-gray-600'
+            }`}
+          >
+            완료된 그룹
           </button>
           {/* 나중에 구현할 예정 (사업자 주관, 거래처 주관 필터)
           <button
@@ -200,12 +200,12 @@ const GroupBuyPage = () => {
                             </span>
                           )}
                           */}
-                          {item.paymentStatus && (
+                          {item.paymentStatus && item.paymentStatus.toUpperCase() !== 'PENDING' && (
                             <span className="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-lg text-[10px] font-black border border-indigo-100 shadow-sm">
                               💳 {item.paymentStatus}
                             </span>
                           )}
-                          {item.deliveryStatus && (
+                          {item.deliveryStatus && item.deliveryStatus.toUpperCase() !== 'PENDING' && (
                             <span className="bg-teal-50 text-teal-600 px-3 py-1 rounded-lg text-[10px] font-black border border-teal-100 shadow-sm">
                               📦 {item.deliveryStatus}
                             </span>

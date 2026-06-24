@@ -152,18 +152,6 @@ const GroupBuyInfoPage = () => {
                   {item.endDate ? item.endDate.split('T')[0] : '미지정'}
                 </p>
               </div>
-              {item.paymentStatus && (
-                <div className="p-6 bg-indigo-50/50 border border-indigo-100 rounded-[24px] shadow-sm flex flex-col justify-center">
-                  <p className="text-[11px] font-black text-indigo-400 uppercase tracking-widest mb-2">결제 상태</p>
-                  <p className="text-xl font-black text-indigo-900 tracking-tight">{item.paymentStatus}</p>
-                </div>
-              )}
-              {item.deliveryStatus && (
-                <div className="p-6 bg-teal-50/50 border border-teal-100 rounded-[24px] shadow-sm flex flex-col justify-center">
-                  <p className="text-[11px] font-black text-teal-400 uppercase tracking-widest mb-2">배송 상태</p>
-                  <p className="text-xl font-black text-teal-900 tracking-tight">{item.deliveryStatus}</p>
-                </div>
-              )}
             </div>
 
             {/* 픽업 장소 및 시간 */}
