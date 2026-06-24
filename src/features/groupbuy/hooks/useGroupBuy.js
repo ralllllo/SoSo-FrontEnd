@@ -29,7 +29,7 @@ export const useGroupBuy = () => {
   }, [setSearchParams]);
   const [myCount, setMyCount] = useState(0);
   const [globalStats, setGlobalStats] = useState({ ongoing: 0, delivered: 0 });
-  const { user_type } = authStore();
+  const { user_type, user_seq } = authStore();
 
   const calculateDDay = (endDateStr) => {
     if (!endDateStr) return 'D-Day';
@@ -55,6 +55,7 @@ export const useGroupBuy = () => {
       seq: seq,
       groupBuySeq: seq,
       isJoined: isMyFilter ? true : (item.isJoined || false),
+      isOwner: filter === 'created' || item.userSeq === user_seq || item.isOwner,
       dDay: calculateDDay(item.endDate),
       status: item.status || 'RECRUITING',
       category: item.category || '기타'
