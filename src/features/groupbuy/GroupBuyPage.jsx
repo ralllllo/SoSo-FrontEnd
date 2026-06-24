@@ -15,7 +15,10 @@ const GroupBuyPage = () => {
     isLoading,
     filter,
     setFilter,
+    statusFilter,
+    setStatusFilter,
     myCount,
+    createdCount,
     globalStats,
     user_type,
     handleCreateGroupBuy,
@@ -66,7 +69,7 @@ const GroupBuyPage = () => {
     <div className="min-h-screen bg-[#F8F9FA] pb-24 font-sans">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* 상단 통계 바 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <div className="bg-white p-8 rounded-[32px] shadow-sm border border-gray-100">
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">참여 가능한 그룹</p>
             <h3 className="text-3xl font-black text-gray-900">{globalStats.ongoing}건</h3>
@@ -74,6 +77,10 @@ const GroupBuyPage = () => {
           <div className="bg-white p-8 rounded-[32px] shadow-sm border border-gray-100">
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">나의 참여 그룹</p>
             <h3 className="text-3xl font-black text-emerald-600">{myCount}건</h3>
+          </div>
+          <div className="bg-white p-8 rounded-[32px] shadow-sm border border-gray-100">
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">내가 개설한 그룹</p>
+            <h3 className="text-3xl font-black text-purple-600">{createdCount}건</h3>
           </div>
           <div className="bg-white p-8 rounded-[32px] shadow-sm border border-gray-100">
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">완료된 그룹</p>

@@ -28,6 +28,7 @@ export const useGroupBuy = () => {
     }, { replace: true });
   }, [setSearchParams]);
   const [myCount, setMyCount] = useState(0);
+  const [createdCount, setCreatedCount] = useState(0);
   const [globalStats, setGlobalStats] = useState({ ongoing: 0, delivered: 0 });
   const { user_type, user_seq } = authStore();
 
@@ -100,6 +101,20 @@ export const useGroupBuy = () => {
       setMyCount(countVal);
     } catch (countError) {
       console.error('Failed to fetch participated count:', countError);
+    }
+
+    // 상단바 통계용 개설 개수 조회
+    try {
+      const createdData = await groupBuyApi.getCreatedCount();
+      let createdVal = 0;
+      if (typeof createdData === 'object' && createdData !== null) {
+        createdVal = createdData.count || 0;
+      } else {
+        createdVal = Number(createdData) || 0;
+      }
+      setCreatedCount(createdVal);
+    } catch (error) {
+      console.error('Failed to fetch created count:', error);
     }
 
     // 상단바 통계용 전체 현황 및 완료된 그룹 수 조회
@@ -198,6 +213,7 @@ export const useGroupBuy = () => {
     statusFilter,
     setStatusFilter,
     myCount,
+    createdCount,
     globalStats,
     user_type,
     handleCreateGroupBuy,
