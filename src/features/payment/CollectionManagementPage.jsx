@@ -68,7 +68,7 @@ function CollectionManagementPage() {
   // 수금관리 대시보드 데이터 조회 함수
   const fetchCollectionDashboard = async () => {
     // 현재 로그인한 거래처의 선택 매장 번호 가져오기
-    const storeSeq = localStorage.getItem('storeSeq');
+    const storeSeq = (JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq);
 
     // storeSeq가 없으면 API 호출 중단
     if (!storeSeq) {

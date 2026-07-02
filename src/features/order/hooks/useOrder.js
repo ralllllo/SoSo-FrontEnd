@@ -93,7 +93,7 @@ const getStatusValue = (status) => {
   nextDateRange = dateRange
 ) => {
   try {
-    const storeSeq = Number(localStorage.getItem('storeSeq'));
+    const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
     if (!storeSeq) {
       setOrders([]);
@@ -119,7 +119,7 @@ const getStatusValue = (status) => {
 };
 //   const fetchOrderList = async (searchKeyword = '') => {
 //   try {
-//     const storeSeq = Number(localStorage.getItem('storeSeq'));
+//     const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
 //     if (!storeSeq) {
 //       console.log('storeSeq 없음');

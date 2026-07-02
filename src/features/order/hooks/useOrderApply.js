@@ -29,7 +29,7 @@ export const useOrderApply = () => {
   // 페이지 렌더링 시작할 때, 사업자 정보 불러오기
   const identityInfoCheck = async () => {
     try {
-      const storeSeq = Number(localStorage.getItem('storeSeq'));
+      const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
       if (!storeSeq) {
         return;
@@ -115,7 +115,7 @@ export const useOrderApply = () => {
 
   const supplierListCheck = async () => {
     try {
-      const storeSeq = Number(localStorage.getItem('storeSeq'));
+      const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
       if (!storeSeq) {
         return;
@@ -299,7 +299,7 @@ export const useOrderApply = () => {
   }
 
       const orderData = {
-        buyerSeq: Number(localStorage.getItem('storeSeq')),
+        buyerSeq: Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq)),
         sellerSeq: Number(orderInfo.supplier),
         totalAmount: totalSummary.total,
         orderMemo: orderInfo.deliveryNotes,

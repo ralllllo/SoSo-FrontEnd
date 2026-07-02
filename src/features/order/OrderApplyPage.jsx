@@ -38,7 +38,7 @@ const supplierRealName = suppliers.find(
   // 재고랑 발주랑 맞는지 확인 후 선택
   const handleSelectSupplierItem = async (item) => {
     try {
-      const storeSeq = Number(localStorage.getItem('storeSeq'));
+      const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
       if (!storeSeq) {
         alert('선택된 매장이 없습니다.');
@@ -107,7 +107,7 @@ const handleConnectStock = (stock) => {
 // 발주 신청 + 연결된 재고 입고 처리
 const handleSubmitWithStockIncoming = async () => {
   try {
-    const storeSeq = Number(localStorage.getItem('storeSeq'));
+    const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
     if (!storeSeq) {
       alert('선택된 매장이 없습니다.');

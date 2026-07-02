@@ -115,7 +115,7 @@ const escapeCsvValue = (value) => {
 };
 
 const handleExportCsv = async () => {
-  const storeSeq = Number(localStorage.getItem("storeSeq"));
+  const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
   if (!storeSeq) {
     alert("선택된 매장 정보가 없습니다.");
@@ -242,7 +242,7 @@ const handleExportCsv = async () => {
 };
 
   const fetchExpenseTotal = async () => {
-  const storeSeq = Number(localStorage.getItem("storeSeq"));
+  const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
   if (!storeSeq) {
     return;
@@ -449,7 +449,7 @@ const handleRemoveDirectPurchaseRow = (index) => {
     if (!isIngredientCategory) return;
     if (ingredientExpenseType !== "general") return;
 
-    const storeSeq = Number(localStorage.getItem("storeSeq"));
+    const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
     if (!storeSeq) {
       return;
@@ -483,7 +483,7 @@ useEffect(() => {
 
     if (ingredientExpenseType !== "general") return;
 
-    const storeSeq = Number(localStorage.getItem("storeSeq"));
+    const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
     if (!storeSeq) {
       return;
@@ -557,7 +557,7 @@ const handleAddExpense = async (e) => {
   }
 
   try {
-    const storeSeq = Number(localStorage.getItem("storeSeq"));
+    const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
     if (!storeSeq) {
       alert("선택된 매장 정보가 없습니다. 상단에서 매장을 선택해 주세요.");
@@ -846,7 +846,7 @@ const handleAddExpense = async (e) => {
 
   // 지출 내역 상세보기 출력
   const handleOpenDetails = async (cat) => {
-  const storeSeq = Number(localStorage.getItem("storeSeq"));
+  const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
   if (!storeSeq) {
     alert("선택된 매장 정보가 없습니다.");
@@ -873,7 +873,7 @@ const handleAddExpense = async (e) => {
 
 // 상세목록 새로고침
 const refreshExpenseDetails = async () => {
-  const storeSeq = Number(localStorage.getItem("storeSeq"));
+  const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
 
   if (!storeSeq || !selectedCategory) return;
 
@@ -908,7 +908,7 @@ const handleCancelEditMemo = () => {
 };
 
 const handleSaveMemo = async (item) => {
-  const storeSeq = Number(localStorage.getItem("storeSeq"));
+  const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
   const expenseSeq = getExpenseSeq(item);
 
   if (!storeSeq) {
@@ -938,7 +938,7 @@ const handleSaveMemo = async (item) => {
 
 
 const handleDeleteExpense = async (item) => {
-  const storeSeq = Number(localStorage.getItem("storeSeq"));
+  const storeSeq = Number((JSON.parse(localStorage.getItem('soso-auth-storage'))?.state?.selectedStoreSeq));
   const expenseSeq = getExpenseSeq(item);
 
   if (!storeSeq) {
