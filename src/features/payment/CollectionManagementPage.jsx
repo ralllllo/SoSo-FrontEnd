@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 // API 파일 위치: src/apis/paymentApi.js
 // payment 폴더에서 src까지 두 번 올라가야 하므로 ../../apis/paymentApi 사용
 import { getCollectionDashboard } from "../../apis/account";
+import MainFooter from "../../components/layout/MainFooter";
 
 const ROWS_PER_PAGE = 10;
 
