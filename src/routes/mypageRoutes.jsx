@@ -7,11 +7,22 @@ import PartnerWithdrawalPage from '../features/mypage/PartnerWithdrawalPage';
 import PartnerSmartNotificationPage from '../features/mypage/PartnerSmartNotificationPage';
 import BusinessSmartNotificationPage from '../features/mypage/BusinessSmartNotificationPage';
 
+import BusinessUpdateMyPage from '../features/mypage/BusinessUpdateMyPage';
+import BusinessMultiProfile from '../features/mypage/BusinessMultiProfile';
+
 /**
  * @file mypageRoutes.jsx
  * @description 마이페이지 도메인 전용 라우트 설정
  */
 const mypageRoutes = [
+  {
+    path: 'business-update-mypage',
+    element: <BusinessUpdateMyPage />,
+  },
+  {
+    path: 'business-multiprofile',
+    element: <BusinessMultiProfile />,
+  },
   {
     path: 'business-mypage',
     element: <BusinessMyPage />,

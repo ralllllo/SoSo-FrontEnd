@@ -1,6 +1,4 @@
 import MainPage from '../features/main/MainPage';
-import BusinessMyPage from '../features/mypage/BusinessMyPage';
-import LoginPage from '../features/member/LoginPage';
 
 /**
  * @file mainRoutes.jsx
@@ -8,17 +6,9 @@ import LoginPage from '../features/member/LoginPage';
  */
 const mainRoutes = [
   {
-    path: '/', // 루트 경로 (메인화면)
+    index: true, // 루트 경로 (메인화면)
     element: <MainPage />,
-  },
-  {
-    path: '/business-mypage',
-    element: <BusinessMyPage />,
-  },
-  {
-    path: '/login',
-    element: <LoginPage />,
-  },
+  }
 ];
 
 export default mainRoutes;
