@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAccountList } from './hooks/useAccountList';
+import { useAccountList } from './hooks/useAccountList';import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
 
-/**
- * @file AccountListPage.jsx
- * @description 거래처 목록 조회 페이지 컴포넌트입니다.
- * 등록된 거래처와 미등록 거래처를 나누어 보여주며, 바로 등록할 수 있는 기능을 제공합니다.
- */
+
+
+
+
+
 function AccountListPage() {
-  const { 
-    accounts, 
-    unregisteredAccounts, 
-    isLoading, 
+  const {
+    accounts,
+    unregisteredAccounts,
+    isLoading,
     searchTerm,
     setSearchTerm,
     selectedCity,
@@ -29,7 +29,7 @@ function AccountListPage() {
     handleConfirmRegistration
   } = useAccountList();
 
-  const [activeTab, setActiveTab] = useState('registered'); // 'registered' | 'unregistered'
+  const [activeTab, setActiveTab] = useState('registered');
 
   const regionData = {
     "서울": ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구", "성북구", "송파구", "양천구", "영등포구", "용산구", "은평구", "종로구", "중구", "중랑구"],
@@ -51,209 +51,209 @@ function AccountListPage() {
     "제주": ["제주시", "서귀포시"]
   };
 
-  // 서버에서 이미 필터링되어 반환된 목록을 그대로 사용합니다.
+
   const currentList = activeTab === 'registered' ? accounts : unregisteredAccounts;
 
   return (
-    <div className="bg-gray-50 min-h-screen relative">
-      <main className="max-w-7xl mx-auto px-4 py-10">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-          <div>
-            <h1 className="text-3xl font-black text-gray-900">거래처 목록</h1>
-            <p className="text-gray-500 mt-2 font-medium">나의 거래처를 관리하고 새로운 파트너를 발굴하세요.</p>
-          </div>
-        </div>
+    _jsxDEV("div", { className: "bg-gray-50 min-h-screen relative", children: [
+      _jsxDEV("main", { className: "max-w-7xl mx-auto px-4 py-10", children: [
+        _jsxDEV("div", { className: "flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4", children:
+          _jsxDEV("div", { children: [
+            _jsxDEV("h1", { className: "text-3xl font-black text-gray-900", children: "거래처 목록" }, void 0, false),
+            _jsxDEV("p", { className: "text-gray-500 mt-2 font-medium", children: "나의 거래처를 관리하고 새로운 파트너를 발굴하세요." }, void 0, false)] }, void 0, true
+          ) }, void 0, false
+        ),
 
-        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-          {/* 상단 탭 및 검색 바 */}
-          <div className="p-6 border-b border-gray-50 flex flex-col xl:flex-row gap-4 items-center justify-between bg-white sticky top-0 z-10">
-            <div className="flex gap-2 p-1 bg-gray-50 rounded-xl w-full xl:w-auto overflow-x-auto">
-              <button 
-                onClick={() => setActiveTab('registered')}
-                className={`px-6 py-2.5 text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeTab === 'registered' ? 'bg-white text-emerald-600 shadow-sm border border-gray-200' : 'text-gray-500 hover:text-emerald-600'}`}
-              >
-                나의 거래처 <span className="ml-1 px-2 py-0.5 bg-gray-100 text-gray-400 rounded-full text-xs">{accounts.length}</span>
-              </button>
-              <button 
-                onClick={() => setActiveTab('unregistered')}
-                className={`px-6 py-2.5 text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeTab === 'unregistered' ? 'bg-white text-emerald-600 shadow-sm border border-gray-200' : 'text-gray-500 hover:text-emerald-600'}`}
-              >
-                새로운 거래처 찾기 <span className="ml-1 px-2 py-0.5 bg-gray-100 text-gray-400 rounded-full text-xs">{unregisteredAccounts.length}</span>
-              </button>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-2 w-full xl:w-auto">
-              {/* 지역 필터 */}
-              <div className="flex gap-2 w-full sm:w-auto">
-                <select 
-                  value={selectedCity} 
-                  onChange={(e) => { setSelectedCity(e.target.value); setSelectedDistrict(''); }}
-                  className="w-full sm:w-32 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-50 transition-all appearance-none cursor-pointer"
-                >
-                  <option value="">시/도 전체</option>
-                  {Object.keys(regionData).map(city => (
-                    <option key={city} value={city}>{city}</option>
-                  ))}
-                </select>
-                
-                <select 
-                  value={selectedDistrict} 
-                  onChange={(e) => setSelectedDistrict(e.target.value)}
-                  disabled={!selectedCity}
-                  className={`w-full sm:w-32 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-50 transition-all appearance-none ${!selectedCity ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                >
-                  <option value="">시/군/구 전체</option>
-                  {selectedCity && regionData[selectedCity].map(district => (
-                    <option key={district} value={district}>{district}</option>
-                  ))}
-                </select>
-              </div>
+        _jsxDEV("div", { className: "bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden", children: [
 
-              {/* 검색어 */}
-              <div className="relative w-full sm:w-64">
-                <input 
-                  type="text" 
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="업체명 또는 대표자명 검색" 
-                  className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-50 transition-all"
-                />
-                <span className="absolute left-3 top-3 text-gray-400">🔍</span>
-              </div>
-            </div>
-          </div>
+          _jsxDEV("div", { className: "p-6 border-b border-gray-50 flex flex-col xl:flex-row gap-4 items-center justify-between bg-white sticky top-0 z-10", children: [
+            _jsxDEV("div", { className: "flex gap-2 p-1 bg-gray-50 rounded-xl w-full xl:w-auto overflow-x-auto", children: [
+              _jsxDEV("button", {
+                onClick: () => setActiveTab('registered'),
+                className: `px-6 py-2.5 text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeTab === 'registered' ? 'bg-white text-emerald-600 shadow-sm border border-gray-200' : 'text-gray-500 hover:text-emerald-600'}`, children: [
+                "나의 거래처 ",
+                _jsxDEV("span", { className: "ml-1 px-2 py-0.5 bg-gray-100 text-gray-400 rounded-full text-xs", children: accounts.length }, void 0, false)] }, void 0, true
+              ),
+              _jsxDEV("button", {
+                onClick: () => setActiveTab('unregistered'),
+                className: `px-6 py-2.5 text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeTab === 'unregistered' ? 'bg-white text-emerald-600 shadow-sm border border-gray-200' : 'text-gray-500 hover:text-emerald-600'}`, children: [
+                "새로운 거래처 찾기 ",
+                _jsxDEV("span", { className: "ml-1 px-2 py-0.5 bg-gray-100 text-gray-400 rounded-full text-xs", children: unregisteredAccounts.length }, void 0, false)] }, void 0, true
+              )] }, void 0, true
+            ),
 
-          {/* 목록 테이블 */}
-          <div className="overflow-x-auto min-h-[400px]">
-            {isLoading ? (
-              <div className="p-32 text-center flex flex-col items-center justify-center h-full">
-                <div className="animate-spin text-5xl mb-6 text-emerald-500">⏳</div>
-                <p className="text-gray-500 font-bold text-lg">거래처 정보를 불러오는 중입니다...</p>
-              </div>
-            ) : currentList.length > 0 ? (
-              <table className="w-full text-left">
-                <thead className="bg-gray-50 border-b border-gray-100">
-                  <tr>
-                    <th className="px-8 py-5 text-xs font-black text-gray-400 uppercase tracking-widest">거래처명</th>
-                    <th className="px-6 py-5 text-xs font-black text-gray-400 uppercase tracking-widest">대표자</th>
-                    <th className="px-6 py-5 text-xs font-black text-gray-400 uppercase tracking-widest">사업자번호</th>
-                    {activeTab === 'registered' && (
-                      <th className="px-6 py-5 text-xs font-black text-gray-400 uppercase tracking-widest">메모</th>
-                    )}
-                    <th className="px-6 py-5 text-xs font-black text-gray-400 uppercase tracking-widest text-center">관리</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-50">
-                  {currentList.map((acc, index) => (
-                    <tr key={acc.id || index} className="hover:bg-emerald-50/30 transition-colors group">
-                      <td className="px-8 py-5">
-                        <div className="text-base font-bold text-gray-900 mb-1">{acc.name}</div>
-                        <div className="text-xs font-medium text-gray-400">{acc.address}</div>
-                      </td>
-                      <td className="px-6 py-5 whitespace-nowrap text-sm font-bold text-gray-600">{acc.ceo}</td>
-                      <td className="px-6 py-5 whitespace-nowrap text-sm font-medium text-gray-500">{acc.bizNum}</td>
-                      {activeTab === 'registered' && (
-                        <td className="px-6 py-5 text-sm text-gray-500 max-w-[200px] truncate">
-                          {acc.memo ? (
-                            <span title={acc.memo}>{acc.memo}</span>
-                          ) : (
-                            <span className="text-gray-300 italic text-xs">메모 없음</span>
-                          )}
-                        </td>
-                      )}
-                      <td className="px-6 py-5 whitespace-nowrap text-center">
-                        <div className="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Link 
-                            to={`/account/management?partnerSeq=${acc.partnerSeq}&name=${encodeURIComponent(acc.name)}`}
-                            className="px-4 py-2 bg-gray-100 text-gray-600 hover:bg-emerald-100 hover:text-emerald-700 text-xs font-bold rounded-lg transition-colors"
-                          >
-                            상세
-                          </Link>
-                          {activeTab === 'registered' ? (
-                            <button 
-                              onClick={() => handleDeleteAccount(acc.id, acc.name)}
-                              className="px-4 py-2 bg-red-50 text-red-500 hover:bg-red-500 hover:text-white text-xs font-bold rounded-lg transition-colors"
-                            >
-                              삭제
-                            </button>
-                          ) : (
-                            <button 
-                              onClick={() => handleOpenModal(acc)}
-                              className="px-4 py-2 bg-emerald-600 text-white hover:bg-emerald-700 text-xs font-bold rounded-lg shadow-md shadow-emerald-100 transition-all"
-                            >
-                              등록
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <div className="p-32 text-center h-full flex flex-col items-center justify-center">
-                <div className="text-7xl mb-6 opacity-50">📭</div>
-                <h3 className="text-2xl font-black text-gray-800 mb-2">
-                  {activeTab === 'registered' ? '등록된 거래처가 없습니다' : '새로운 거래처가 없습니다'}
-                </h3>
-                <p className="text-gray-400 font-medium">
-                  {searchTerm ? '검색어에 해당하는 결과가 없습니다.' : '목록을 확인하고 파트너를 관리해 보세요.'}
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </main>
+            _jsxDEV("div", { className: "flex flex-col sm:flex-row gap-2 w-full xl:w-auto", children: [
 
-      {/* 📝 등록 메모 입력 모달 */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden animate-scale-up">
-            <div className="p-8 border-b border-gray-50 flex justify-between items-center bg-gray-50">
-              <div>
-                <h2 className="text-2xl font-black text-gray-900">거래처 등록</h2>
-                <p className="text-sm text-gray-500 font-medium mt-1">
-                  <span className="text-emerald-600 font-bold">[{selectedPartner?.name}]</span> 업체와 파트너 관계를 맺으시겠습니까?
-                </p>
-              </div>
-            </div>
-            
-            <div className="p-8 space-y-4">
-              <label className="text-sm font-bold text-gray-700 block ml-1">거래처 메모 (선택)</label>
-              <textarea
-                value={memo}
-                onChange={(e) => setMemo(e.target.value)}
-                placeholder="예: 신선 채소 전문, 매일 오전 배송 등"
-                className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all resize-none min-h-[120px]"
-              />
-              <p className="text-[11px] text-gray-400 leading-relaxed px-1">
-                * 등록된 메모는 거래처 목록에서 확인할 수 있으며, 업무 효율을 높이는 데 도움이 됩니다.
-              </p>
-            </div>
+              _jsxDEV("div", { className: "flex gap-2 w-full sm:w-auto", children: [
+                _jsxDEV("select", {
+                  value: selectedCity,
+                  onChange: (e) => {setSelectedCity(e.target.value);setSelectedDistrict('');},
+                  className: "w-full sm:w-32 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-50 transition-all appearance-none cursor-pointer", children: [
 
-            <div className="p-4 bg-gray-50 flex gap-3">
-              <button
-                onClick={handleCloseModal}
-                disabled={isRegistering}
-                className="flex-1 py-4 bg-white border border-gray-200 text-gray-500 font-bold rounded-2xl hover:bg-gray-100 transition-all"
-              >
-                취소
-              </button>
-              <button
-                onClick={handleConfirmRegistration}
-                disabled={isRegistering}
-                className={`flex-[1.5] py-4 rounded-2xl font-bold text-white transition-all shadow-lg ${
-                  isRegistering ? 'bg-gray-300' : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-100'
-                }`}
-              >
-                {isRegistering ? '등록 중...' : '등록 완료'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+                  _jsxDEV("option", { value: "", children: "시/도 전체" }, void 0, false),
+                  Object.keys(regionData).map((city) =>
+                  _jsxDEV("option", { value: city, children: city }, city, false)
+                  )] }, void 0, true
+                ),
+
+                _jsxDEV("select", {
+                  value: selectedDistrict,
+                  onChange: (e) => setSelectedDistrict(e.target.value),
+                  disabled: !selectedCity,
+                  className: `w-full sm:w-32 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-50 transition-all appearance-none ${!selectedCity ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`, children: [
+
+                  _jsxDEV("option", { value: "", children: "시/군/구 전체" }, void 0, false),
+                  selectedCity && regionData[selectedCity].map((district) =>
+                  _jsxDEV("option", { value: district, children: district }, district, false)
+                  )] }, void 0, true
+                )] }, void 0, true
+              ),
+
+
+              _jsxDEV("div", { className: "relative w-full sm:w-64", children: [
+                _jsxDEV("input", {
+                  type: "text",
+                  value: searchTerm,
+                  onChange: (e) => setSearchTerm(e.target.value),
+                  placeholder: "업체명 또는 대표자명 검색",
+                  className: "w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-50 transition-all" }, void 0, false
+                ),
+                _jsxDEV("span", { className: "absolute left-3 top-3 text-gray-400", children: "🔍" }, void 0, false)] }, void 0, true
+              )] }, void 0, true
+            )] }, void 0, true
+          ),
+
+
+          _jsxDEV("div", { className: "overflow-x-auto min-h-[400px]", children:
+            isLoading ?
+            _jsxDEV("div", { className: "p-32 text-center flex flex-col items-center justify-center h-full", children: [
+              _jsxDEV("div", { className: "animate-spin text-5xl mb-6 text-emerald-500", children: "⏳" }, void 0, false),
+              _jsxDEV("p", { className: "text-gray-500 font-bold text-lg", children: "거래처 정보를 불러오는 중입니다..." }, void 0, false)] }, void 0, true
+            ) :
+            currentList.length > 0 ?
+            _jsxDEV("table", { className: "w-full text-left", children: [
+              _jsxDEV("thead", { className: "bg-gray-50 border-b border-gray-100", children:
+                _jsxDEV("tr", { children: [
+                  _jsxDEV("th", { className: "px-8 py-5 text-xs font-black text-gray-400 uppercase tracking-widest", children: "거래처명" }, void 0, false),
+                  _jsxDEV("th", { className: "px-6 py-5 text-xs font-black text-gray-400 uppercase tracking-widest", children: "대표자" }, void 0, false),
+                  _jsxDEV("th", { className: "px-6 py-5 text-xs font-black text-gray-400 uppercase tracking-widest", children: "사업자번호" }, void 0, false),
+                  activeTab === 'registered' &&
+                  _jsxDEV("th", { className: "px-6 py-5 text-xs font-black text-gray-400 uppercase tracking-widest", children: "메모" }, void 0, false),
+
+                  _jsxDEV("th", { className: "px-6 py-5 text-xs font-black text-gray-400 uppercase tracking-widest text-center", children: "관리" }, void 0, false)] }, void 0, true
+                ) }, void 0, false
+              ),
+              _jsxDEV("tbody", { className: "divide-y divide-gray-50", children:
+                currentList.map((acc, index) =>
+                _jsxDEV("tr", { className: "hover:bg-emerald-50/30 transition-colors group", children: [
+                  _jsxDEV("td", { className: "px-8 py-5", children: [
+                    _jsxDEV("div", { className: "text-base font-bold text-gray-900 mb-1", children: acc.name }, void 0, false),
+                    _jsxDEV("div", { className: "text-xs font-medium text-gray-400", children: acc.address }, void 0, false)] }, void 0, true
+                  ),
+                  _jsxDEV("td", { className: "px-6 py-5 whitespace-nowrap text-sm font-bold text-gray-600", children: acc.ceo }, void 0, false),
+                  _jsxDEV("td", { className: "px-6 py-5 whitespace-nowrap text-sm font-medium text-gray-500", children: acc.bizNum }, void 0, false),
+                  activeTab === 'registered' &&
+                  _jsxDEV("td", { className: "px-6 py-5 text-sm text-gray-500 max-w-[200px] truncate", children:
+                    acc.memo ?
+                    _jsxDEV("span", { title: acc.memo, children: acc.memo }, void 0, false) :
+
+                    _jsxDEV("span", { className: "text-gray-300 italic text-xs", children: "메모 없음" }, void 0, false) }, void 0, false
+
+                  ),
+
+                  _jsxDEV("td", { className: "px-6 py-5 whitespace-nowrap text-center", children:
+                    _jsxDEV("div", { className: "flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity", children: [
+                      _jsxDEV(Link, {
+                        to: `/account/management?partnerSeq=${acc.partnerSeq}&name=${encodeURIComponent(acc.name)}`,
+                        className: "px-4 py-2 bg-gray-100 text-gray-600 hover:bg-emerald-100 hover:text-emerald-700 text-xs font-bold rounded-lg transition-colors", children:
+                        "상세" }, void 0, false
+
+                      ),
+                      activeTab === 'registered' ?
+                      _jsxDEV("button", {
+                        onClick: () => handleDeleteAccount(acc.id, acc.name),
+                        className: "px-4 py-2 bg-red-50 text-red-500 hover:bg-red-500 hover:text-white text-xs font-bold rounded-lg transition-colors", children:
+                        "삭제" }, void 0, false
+
+                      ) :
+
+                      _jsxDEV("button", {
+                        onClick: () => handleOpenModal(acc),
+                        className: "px-4 py-2 bg-emerald-600 text-white hover:bg-emerald-700 text-xs font-bold rounded-lg shadow-md shadow-emerald-100 transition-all", children:
+                        "등록" }, void 0, false
+
+                      )] }, void 0, true
+
+                    ) }, void 0, false
+                  )] }, acc.id || index, true
+                )
+                ) }, void 0, false
+              )] }, void 0, true
+            ) :
+
+            _jsxDEV("div", { className: "p-32 text-center h-full flex flex-col items-center justify-center", children: [
+              _jsxDEV("div", { className: "text-7xl mb-6 opacity-50", children: "📭" }, void 0, false),
+              _jsxDEV("h3", { className: "text-2xl font-black text-gray-800 mb-2", children:
+                activeTab === 'registered' ? '등록된 거래처가 없습니다' : '새로운 거래처가 없습니다' }, void 0, false
+              ),
+              _jsxDEV("p", { className: "text-gray-400 font-medium", children:
+                searchTerm ? '검색어에 해당하는 결과가 없습니다.' : '목록을 확인하고 파트너를 관리해 보세요.' }, void 0, false
+              )] }, void 0, true
+            ) }, void 0, false
+
+          )] }, void 0, true
+        )] }, void 0, true
+      ),
+
+
+      isModalOpen &&
+      _jsxDEV("div", { className: "fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm animate-fade-in", children:
+        _jsxDEV("div", { className: "bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden animate-scale-up", children: [
+          _jsxDEV("div", { className: "p-8 border-b border-gray-50 flex justify-between items-center bg-gray-50", children:
+            _jsxDEV("div", { children: [
+              _jsxDEV("h2", { className: "text-2xl font-black text-gray-900", children: "거래처 등록" }, void 0, false),
+              _jsxDEV("p", { className: "text-sm text-gray-500 font-medium mt-1", children: [
+                _jsxDEV("span", { className: "text-emerald-600 font-bold", children: ["[", selectedPartner?.name, "]"] }, void 0, true), " 업체와 파트너 관계를 맺으시겠습니까?"] }, void 0, true
+              )] }, void 0, true
+            ) }, void 0, false
+          ),
+
+          _jsxDEV("div", { className: "p-8 space-y-4", children: [
+            _jsxDEV("label", { className: "text-sm font-bold text-gray-700 block ml-1", children: "거래처 메모 (선택)" }, void 0, false),
+            _jsxDEV("textarea", {
+              value: memo,
+              onChange: (e) => setMemo(e.target.value),
+              placeholder: "예: 신선 채소 전문, 매일 오전 배송 등",
+              className: "w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all resize-none min-h-[120px]" }, void 0, false
+            ),
+            _jsxDEV("p", { className: "text-[11px] text-gray-400 leading-relaxed px-1", children: "* 등록된 메모는 거래처 목록에서 확인할 수 있으며, 업무 효율을 높이는 데 도움이 됩니다." }, void 0, false
+
+            )] }, void 0, true
+          ),
+
+          _jsxDEV("div", { className: "p-4 bg-gray-50 flex gap-3", children: [
+            _jsxDEV("button", {
+              onClick: handleCloseModal,
+              disabled: isRegistering,
+              className: "flex-1 py-4 bg-white border border-gray-200 text-gray-500 font-bold rounded-2xl hover:bg-gray-100 transition-all", children:
+              "취소" }, void 0, false
+
+            ),
+            _jsxDEV("button", {
+              onClick: handleConfirmRegistration,
+              disabled: isRegistering,
+              className: `flex-[1.5] py-4 rounded-2xl font-bold text-white transition-all shadow-lg ${
+              isRegistering ? 'bg-gray-300' : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-100'}`, children:
+
+
+              isRegistering ? '등록 중...' : '등록 완료' }, void 0, false
+            )] }, void 0, true
+          )] }, void 0, true
+        ) }, void 0, false
+      )] }, void 0, true
+
+    ));
+
 }
 
 export default AccountListPage;

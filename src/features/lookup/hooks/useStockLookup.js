@@ -2,10 +2,10 @@ import { useState, useCallback } from 'react';
 import { getStockHistoryModal } from '../../../apis/stockApi.js';
 import authStore from '../../../store/authStore.js';
 
-/**
- * @file useStockLookup.js
- * @description 재고 변동 이력 조회 비즈니스 로직 훅
- */
+
+
+
+
 export const useStockLookup = () => {
   const [historyData, setHistoryData] = useState({
     historyList: [],
@@ -40,6 +40,6 @@ export const useStockLookup = () => {
   return {
     historyData,
     isLoading,
-    fetchHistory,
+    fetchHistory
   };
 };

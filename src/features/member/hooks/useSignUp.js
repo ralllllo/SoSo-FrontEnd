@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { checkIdApi, checkNicknameApi, checkEmailApi, signUpApi,checkBusinessApi } from '../../../apis/memberApi';
+import { checkIdApi, checkNicknameApi, checkEmailApi, signUpApi, checkBusinessApi } from '../../../apis/memberApi';
 import { useNavigate } from 'react-router-dom';
 
-/**
- * @file useSignUp.js
- * @description 회원가입 비즈니스 로직 및 API 통신 제어 커스텀 훅 (Strict Logic Isolation)
- */
+
+
+
+
 
 const REGEX = {
   ID: /^[a-zA-Z0-9]{6,20}$/,
@@ -13,7 +13,7 @@ const REGEX = {
   PHONE: /^010-\d{4}-\d{4}$/,
   SSN_FRONT: /^\d{6}$/,
   SSN_BACK: /^[1-4]\d{6}$/,
-  EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 };
 
 export const useSignUp = () => {
@@ -56,9 +56,9 @@ export const useSignUp = () => {
 
   const navi = useNavigate();
 
-  /**
-   * 필드 유효성 검사
-   */
+
+
+
   const validateField = (name, value, currentFormData = formData) => {
     let error = '';
     switch (name) {
@@ -86,16 +86,16 @@ export const useSignUp = () => {
       default:
         break;
     }
-    setErrors(prev => ({ ...prev, [name]: error }));
+    setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
-  /**
-   * 입력값 변경 핸들러
-   */
+
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    
-    // 숫자 제한 로직 (주민번호)
+
+
     if ((name === 'ssnFront' || name === 'ssnBack') && !/^\d*$/.test(value)) return;
     if (name === 'ssnFront' && value.length > 6) return;
     if (name === 'ssnBack' && value.length > 7) return;
@@ -114,17 +114,17 @@ export const useSignUp = () => {
     const nextFormData = { ...formData, [name]: finalValue };
     setFormData(nextFormData);
 
-    // 중복 확인 상태 초기화 (입력값 변경 시 재인증 필요)
+
     if (['userId', 'nickname', 'email'].includes(name)) {
-      setApiStatus(prev => ({ ...prev, [`${name}Checked`]: false }));
+      setApiStatus((prev) => ({ ...prev, [`${name}Checked`]: false }));
     }
 
     validateField(name, finalValue, nextFormData);
   };
 
-  /**
-   * 중복 확인 API 호출
-   */
+
+
+
   const checkDuplicate = async (field) => {
     if (errors[field] || !formData[field]) {
       alert('올바른 값을 입력한 후 중복확인을 해주세요.');
@@ -133,15 +133,15 @@ export const useSignUp = () => {
 
     try {
       let response;
-      if (field === 'userId') response = await checkIdApi(formData.userId);
-      else if (field === 'nickname') response = await checkNicknameApi(formData.nickname);
-      else if (field === 'email') response = await checkEmailApi(formData.email);
+      if (field === 'userId') response = await checkIdApi(formData.userId);else
+      if (field === 'nickname') response = await checkNicknameApi(formData.nickname);else
+      if (field === 'email') response = await checkEmailApi(formData.email);
 
       if (response && !response.isDuplicated) {
-        setApiStatus(prev => ({ ...prev, [`${field}Checked`]: true }));
+        setApiStatus((prev) => ({ ...prev, [`${field}Checked`]: true }));
         alert(response.message);
       } else {
-        setApiStatus(prev => ({ ...prev, [`${field}Checked`]: false }));
+        setApiStatus((prev) => ({ ...prev, [`${field}Checked`]: false }));
         alert(response?.message || '이미 사용 중입니다.');
       }
     } catch (error) {
@@ -150,31 +150,31 @@ export const useSignUp = () => {
     }
   };
 
-  /**
-   * 사업자 진위 확인 API 호출
-   */
+
+
+
   const verifyBusiness = async () => {
     const { bizNo, openDate, ceoName, corpName } = formData;
-    
+
     if (!bizNo || !openDate || !ceoName || !corpName) {
       alert('사업자 정보를 모두 입력해 주세요.');
       return;
     }
 
     try {
-      // YYYY-MM-DD -> YYYYMMDD 형식으로 변환 (백엔드 요구사항에 맞춤)
+
       const formattedDate = openDate.replace(/-/g, '');
-      
+
       const message = await checkBusinessApi(bizNo, formattedDate, ceoName, corpName);
-      
-      setApiStatus(prev => ({ ...prev, bizVerified: true }));
+
+      setApiStatus((prev) => ({ ...prev, bizVerified: true }));
       alert(message || '사업자 인증이 완료되었습니다.');
     } catch (error) {
       console.error('사업자 인증 오류:', error);
-      setApiStatus(prev => ({ ...prev, bizVerified: false }));
-      const errorStr = error.response?.data; 
-      
-      // 💡 사업자 번호 중복일 때와 국세청 불일치일 때를 명확히 분기해서 안내하네!
+      setApiStatus((prev) => ({ ...prev, bizVerified: false }));
+      const errorStr = error.response?.data;
+
+
       if (errorStr.message === "DUPLICATED_BIZ_NO") {
         alert("🚨 이미 등록된 사업자 번호입니다. 기존 계정으로 로그인하시거나 관리자에게 문의해 주세요.");
       } else {
@@ -183,45 +183,45 @@ export const useSignUp = () => {
     }
   };
 
-  /**
-   * 주소 검색 (Daum Postcode)
-   */
+
+
+
   const searchAddress = () => {
     new window.daum.Postcode({
       oncomplete: (data) => {
-        setFormData(prev => ({ ...prev, zipCode: data.zonecode, address: data.roadAddress }));
+        setFormData((prev) => ({ ...prev, zipCode: data.zonecode, address: data.roadAddress }));
       }
     }).open();
   };
 
-  /**
-   * 파일 변경 핸들러
-   */
+
+
+
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
     if (!file) return;
     if (file.size > 10 * 1024 * 1024) return alert('10MB 이하 파일만 가능합니다.');
     if (!['image/jpeg', 'image/png'].includes(file.type)) return alert('JPG/PNG 파일만 가능합니다.');
-     
-     // 기존 프리뷰 URL 해제 (메모리 누수 방지)
-         if (previews[type]) {
-          URL.revokeObjectURL(previews[type]);
-         }
-       
-         const previewUrl = URL.createObjectURL(file);
-          setImages(prev => ({ ...prev, [type]: file }));
-         setPreviews(prev => ({ ...prev, [type]: previewUrl }));
+
+
+    if (previews[type]) {
+      URL.revokeObjectURL(previews[type]);
+    }
+
+    const previewUrl = URL.createObjectURL(file);
+    setImages((prev) => ({ ...prev, [type]: file }));
+    setPreviews((prev) => ({ ...prev, [type]: previewUrl }));
   };
 
-  /**
-   * 약관 동의 변경 핸들러
-   */
+
+
+
   const handleTermsChange = (name) => {
     if (name === 'all') {
       const nextVal = !terms.all;
       setTerms({ all: nextVal, service: nextVal, privacy: nextVal, marketing: nextVal });
     } else {
-      setTerms(prev => {
+      setTerms((prev) => {
         const next = { ...prev, [name]: !prev[name] };
         next.all = next.service && next.privacy && next.marketing;
         return next;
@@ -229,14 +229,14 @@ export const useSignUp = () => {
     }
   };
 
-  /**
-   * 회원가입 제출 핸들러
-   */
+
+
+
   const handleSubmit = async (e) => {
-    // form 태그 제거로 인해 e가 undefined일 수 있으므로 옵셔널 체이닝 사용
+
     e?.preventDefault();
-    
-    // 최종 검증
+
+
     if (!apiStatus.userIdChecked || !apiStatus.nicknameChecked || !apiStatus.emailChecked) {
       return alert('아이디, 닉네임, 이메일 중복 확인을 모두 완료해주세요.');
     }
@@ -257,7 +257,7 @@ export const useSignUp = () => {
       const result = await signUpApi(formData, images.exterior, images.interior);
       if (result.status === 'success') {
         alert(result.message);
-        navi("/")
+        navi("/");
       } else {
         alert(result.message || '회원가입 처리 중 오류가 발생했습니다.');
       }
@@ -269,7 +269,7 @@ export const useSignUp = () => {
   };
 
   return {
-    formData, errors, apiStatus, images,previews, terms,
+    formData, errors, apiStatus, images, previews, terms,
     handleChange, checkDuplicate, verifyBusiness, searchAddress,
     handleFileChange, handleTermsChange, handleSubmit
   };

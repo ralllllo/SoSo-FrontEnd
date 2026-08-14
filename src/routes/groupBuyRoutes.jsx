@@ -2,29 +2,29 @@ import React from 'react';
 import GroupBuyPage from '../features/groupbuy/GroupBuyPage';
 import GroupBuyDeliveryPage from '../features/groupbuy/GroupBuyDeliveryPage';
 import GroupBuyDetailPage from '../features/groupbuy/GroupBuyDetailPage';
-import GroupBuyInfoPage from '../features/groupbuy/GroupBuyInfoPage';
+import GroupBuyInfoPage from '../features/groupbuy/GroupBuyInfoPage';import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
 
-/**
- * @file groupBuyRoutes.jsx
- * @description 공동구매 관련 라우트 설정 파일입니다.
- */
+
+
+
+
 const groupBuyRoutes = [
-  {
-    path: '/group-buy',
-    element: <GroupBuyPage />,
-  },
-  {
-    path: '/group-buy/:seq',
-    element: <GroupBuyDetailPage />,
-  },
-  {
-    path: '/group-buy/:seq/info',
-    element: <GroupBuyInfoPage />,
-  },
-  {
-    path: '/group-buy/:seq/delivery',
-    element: <GroupBuyDeliveryPage />,
-  },
-];
+{
+  path: '/group-buy',
+  element: _jsxDEV(GroupBuyPage, {}, void 0, false)
+},
+{
+  path: '/group-buy/:seq',
+  element: _jsxDEV(GroupBuyDetailPage, {}, void 0, false)
+},
+{
+  path: '/group-buy/:seq/info',
+  element: _jsxDEV(GroupBuyInfoPage, {}, void 0, false)
+},
+{
+  path: '/group-buy/:seq/delivery',
+  element: _jsxDEV(GroupBuyDeliveryPage, {}, void 0, false)
+}];
+
 
 export default groupBuyRoutes;

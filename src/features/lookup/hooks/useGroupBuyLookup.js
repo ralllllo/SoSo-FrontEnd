@@ -2,10 +2,10 @@ import { useState, useCallback } from 'react';
 import { groupBuyApi } from '../../../apis/groupBuyApi';
 import authStore from '../../../store/authStore.js';
 
-/**
- * @file useGroupBuyLookup.js
- * @description 공동구매 이력 조회 비즈니스 로직 훅
- */
+
+
+
+
 export const useGroupBuyLookup = () => {
   const [history, setHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +26,6 @@ export const useGroupBuyLookup = () => {
   return {
     history,
     isLoading,
-    fetchHistory,
+    fetchHistory
   };
 };

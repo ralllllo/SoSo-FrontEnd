@@ -8,53 +8,53 @@ import PartnerSmartNotificationPage from '../features/mypage/PartnerSmartNotific
 import BusinessSmartNotificationPage from '../features/mypage/BusinessSmartNotificationPage';
 
 import BusinessUpdateMyPage from '../features/mypage/BusinessUpdateMyPage';
-import BusinessMultiProfile from '../features/mypage/BusinessMultiProfile';
+import BusinessMultiProfile from '../features/mypage/BusinessMultiProfile';import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
 
-/**
- * @file mypageRoutes.jsx
- * @description 마이페이지 도메인 전용 라우트 설정
- */
+
+
+
+
 const mypageRoutes = [
-  {
-    path: 'business-update-mypage',
-    element: <BusinessUpdateMyPage />,
-  },
-  {
-    path: 'business-multiprofile',
-    element: <BusinessMultiProfile />,
-  },
-  {
-    path: 'business-mypage',
-    element: <BusinessMyPage />,
-  },
-  {
-    path: 'business-notification',
-    element: <BusinessSmartNotificationPage />,
-  },
-  {
-    path: 'business-withdrawal',
-    element: <BusinessWithdrawalPage />,
-  },
-  {
-    path: 'business-attendance',
-    element: <BusinessAttendancePage />,
-  },
-  {
-    path: 'partner-info',
-    element: <PartnerInfoPage />,
-  },
-  {
-    path: 'partner-edit',
-    element: <PartnerEditProfilePage />,
-  },
-  {
-    path: 'partner-withdrawal',
-    element: <PartnerWithdrawalPage />,
-  },
-  {
-    path: 'partner-notification',
-    element: <PartnerSmartNotificationPage />,
-  }
-];
+{
+  path: 'business-update-mypage',
+  element: _jsxDEV(BusinessUpdateMyPage, {}, void 0, false)
+},
+{
+  path: 'business-multiprofile',
+  element: _jsxDEV(BusinessMultiProfile, {}, void 0, false)
+},
+{
+  path: 'business-mypage',
+  element: _jsxDEV(BusinessMyPage, {}, void 0, false)
+},
+{
+  path: 'business-notification',
+  element: _jsxDEV(BusinessSmartNotificationPage, {}, void 0, false)
+},
+{
+  path: 'business-withdrawal',
+  element: _jsxDEV(BusinessWithdrawalPage, {}, void 0, false)
+},
+{
+  path: 'business-attendance',
+  element: _jsxDEV(BusinessAttendancePage, {}, void 0, false)
+},
+{
+  path: 'partner-info',
+  element: _jsxDEV(PartnerInfoPage, {}, void 0, false)
+},
+{
+  path: 'partner-edit',
+  element: _jsxDEV(PartnerEditProfilePage, {}, void 0, false)
+},
+{
+  path: 'partner-withdrawal',
+  element: _jsxDEV(PartnerWithdrawalPage, {}, void 0, false)
+},
+{
+  path: 'partner-notification',
+  element: _jsxDEV(PartnerSmartNotificationPage, {}, void 0, false)
+}];
+
 
 export default mypageRoutes;

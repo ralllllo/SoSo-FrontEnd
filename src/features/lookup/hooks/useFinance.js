@@ -2,10 +2,10 @@ import { useState, useCallback } from 'react';
 import { getFinanceList, getDailySummary, insertFinance } from '../../../apis/financeApi.js';
 import authStore from '../../../store/authStore.js';
 
-/**
- * @file useFinance.js
- * @description 정산 및 영업 일지 비즈니스 로직 훅
- */
+
+
+
+
 export const useFinance = () => {
   const [financeList, setFinanceList] = useState([]);
   const [dailySummary, setDailySummary] = useState([]);

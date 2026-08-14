@@ -3,26 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { withdrawMemberApi } from '../../../apis/memberApi';
 import authStore from '../../../store/authStore';
 
-/**
- * @file useBusinessWithdrawal.js
- * @description 사업자 회원 탈퇴 로직 처리를 위한 커스텀 훅
- */
+
+
+
+
 export const useBusinessWithdrawal = () => {
   const navigate = useNavigate();
   const logout = authStore((state) => state.logout);
-  
+
   const [reason, setReason] = useState('');
   const [customReason, setCustomReason] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const reasons = [
-    '매장을 폐업하게 되었어요',
-    '다른 통합 관리 서비스를 이용하기로 했어요',
-    '사용 방법이 너무 어려워요',
-    '기능이 부족하다고 느껴져요',
-    '기타 (직접 입력)'
-  ];
+  '매장을 폐업하게 되었어요',
+  '다른 통합 관리 서비스를 이용하기로 했어요',
+  '사용 방법이 너무 어려워요',
+  '기능이 부족하다고 느껴져요',
+  '기타 (직접 입력)'];
+
 
   const handleWithdrawal = async () => {
     if (!isChecked) {
@@ -41,15 +41,15 @@ export const useBusinessWithdrawal = () => {
     }
 
     const confirmResult = window.confirm('정말로 탈퇴하시겠습니까? 탈퇴 시 SoSo의 모든 서비스 이용이 중단됩니다.');
-    
+
     if (confirmResult) {
       setIsSubmitting(true);
       try {
         const withdrawReason = reason === '기타 (직접 입력)' ? customReason : reason;
-        
-        // 공용 withdrawMemberApi 호출
+
+
         const result = await withdrawMemberApi({ withdrawReason });
-        
+
         if (result.status === 'success' || result) {
           alert('그동안 SoSo를 이용해 주셔서 감사합니다. 회원 탈퇴가 완료되었습니다.');
           logout();

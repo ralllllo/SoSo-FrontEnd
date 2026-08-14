@@ -3,10 +3,10 @@ import { useSearchParams } from 'react-router-dom';
 import { groupBuyApi } from '../../../apis/groupBuyApi';
 import authStore from '../../../store/authStore';
 
-/**
- * @file useGroupBuy.js
- * @description 공동구매 도메인의 비즈니스 로직을 담당하는 커스텀 훅
- */
+
+
+
+
 export const useGroupBuy = () => {
   const [groupBuys, setGroupBuys] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -15,14 +15,14 @@ export const useGroupBuy = () => {
   const statusFilter = searchParams.get('status') || '전체';
 
   const setFilter = useCallback((newFilter) => {
-    setSearchParams(prev => {
+    setSearchParams((prev) => {
       prev.set('filter', newFilter);
       return prev;
     }, { replace: true });
   }, [setSearchParams]);
 
   const setStatusFilter = useCallback((newStatus) => {
-    setSearchParams(prev => {
+    setSearchParams((prev) => {
       prev.set('status', newStatus);
       return prev;
     }, { replace: true });
@@ -38,12 +38,12 @@ export const useGroupBuy = () => {
     today.setHours(0, 0, 0, 0);
     const end = new Date(endDateStr);
     end.setHours(0, 0, 0, 0);
-    
+
     if (isNaN(end.getTime())) return 'D-Day';
-    
+
     const diffTime = end.getTime() - today.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays > 0) return `D-${diffDays}`;
     if (diffDays === 0) return 'D-Day';
     return `D+${Math.abs(diffDays)}`;
@@ -55,7 +55,7 @@ export const useGroupBuy = () => {
       ...item,
       seq: seq,
       groupBuySeq: seq,
-      isJoined: isMyFilter ? true : (item.isJoined || false),
+      isJoined: isMyFilter ? true : item.isJoined || false,
       isOwner: filter === 'created' || item.userSeq === user_seq || item.isOwner,
       dDay: calculateDDay(item.endDate),
       status: item.status || 'RECRUITING',
@@ -73,16 +73,16 @@ export const useGroupBuy = () => {
       } else if (filter === 'completed') {
         const participatedCompleted = await groupBuyApi.getCompletedGroupBuys();
         const createdAll = await groupBuyApi.getCreatedGroupBuys();
-        const createdCompleted = createdAll.filter(item => item.status === 'COMPLETED');
+        const createdCompleted = createdAll.filter((item) => item.status === 'COMPLETED');
         const merged = [...participatedCompleted, ...createdCompleted];
-        // 중복 제거 (seq 기준)
-        data = merged.filter((v, i, a) => a.findIndex(t => (t.groupBuySeq || t.seq) === (v.groupBuySeq || v.seq)) === i);
+
+        data = merged.filter((v, i, a) => a.findIndex((t) => (t.groupBuySeq || t.seq) === (v.groupBuySeq || v.seq)) === i);
       } else if (filter === 'created') {
         data = await groupBuyApi.getCreatedGroupBuys();
       } else {
         data = await groupBuyApi.getGroupBuys(filter);
       }
-      // 데이터 변환 및 기본값 설정
+
       const formattedData = data.map((item, index) => mapGroupBuyData(item, index, filter === 'my' || filter === 'completed' || filter === 'created'));
       latestData = formattedData;
       setGroupBuys(formattedData);
@@ -94,7 +94,7 @@ export const useGroupBuy = () => {
       setIsLoading(false);
     }
 
-    // 상단바 통계용 참여 개수 조회 (독립적으로 실행)
+
     try {
       const countData = await groupBuyApi.getParticipatedCount();
       let countVal = 0;
@@ -108,7 +108,7 @@ export const useGroupBuy = () => {
       console.error('Failed to fetch participated count:', countError);
     }
 
-    // 상단바 통계용 개설 개수 조회
+
     try {
       const createdData = await groupBuyApi.getCreatedCount();
       let createdVal = 0;
@@ -122,11 +122,11 @@ export const useGroupBuy = () => {
       console.error('Failed to fetch created count:', error);
     }
 
-    // 상단바 통계용 전체 현황 및 완료된 그룹 수 조회
+
     try {
       const allData = await groupBuyApi.getGroupBuys('all');
-      const ongoing = allData.filter(i => i.status === 'RECRUITING').length;
-      
+      const ongoing = allData.filter((i) => i.status === 'RECRUITING').length;
+
       const completedData = await groupBuyApi.getCompletedCount();
       let delivered = 0;
       if (typeof completedData === 'object' && completedData !== null) {
@@ -134,7 +134,7 @@ export const useGroupBuy = () => {
       } else {
         delivered = Number(completedData) || 0;
       }
-      
+
       setGlobalStats({ ongoing, delivered });
     } catch (statsError) {
       console.error('Failed to fetch global stats:', statsError);
@@ -188,12 +188,12 @@ export const useGroupBuy = () => {
   };
 
   const filteredGroupBuys = groupBuys.filter((item) => {
-    // 1. 상태(모집중, 완료 등) 필터
+
     if (statusFilter !== '전체' && item.status !== statusFilter) {
       return false;
     }
-    
-    // 2. 종류(전체, 참여, 주최자) 필터
+
+
     if (filter === 'my') {
       if (!item.isJoined || item.status === 'COMPLETED') return false;
     }
@@ -228,6 +228,6 @@ export const useGroupBuy = () => {
     handleJoinGroupBuy,
     handleUpdateStatus,
     getParticipants,
-    refresh: fetchGroupBuys,
+    refresh: fetchGroupBuys
   };
 };
