@@ -2,10 +2,10 @@ import { useState, useCallback } from 'react';
 import axiosInstance from '../../../apis/axiosConfig.js';
 import authStore from '../../../store/authStore.js';
 
-/**
- * @file useOrderLookup.js
- * @description 발주 이력 조회 비즈니스 로직 훅
- */
+
+
+
+
 export const useOrderLookup = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +20,7 @@ export const useOrderLookup = () => {
     try {
       let response;
       if (isPartner) {
-        // Convert status 'ALL' to empty string for MyBatis mapper
+
         const apiStatus = params.status === 'ALL' ? '' : params.status;
         response = await axiosInstance.get('/api/partner/orders', {
           params: {
@@ -29,19 +29,19 @@ export const useOrderLookup = () => {
             status: apiStatus
           }
         });
-        
+
         let data = response.data || [];
-        // Apply date filtering client-side for partner since the endpoint doesn't support date queries
+
         if (params.startDate) {
-          data = data.filter(o => o.createdAt && o.createdAt.split('T')[0] >= params.startDate);
+          data = data.filter((o) => o.createdAt && o.createdAt.split('T')[0] >= params.startDate);
         }
         if (params.endDate) {
-          data = data.filter(o => o.createdAt && o.createdAt.split('T')[0] <= params.endDate);
+          data = data.filter((o) => o.createdAt && o.createdAt.split('T')[0] <= params.endDate);
         }
         setOrders(data);
       } else {
-        response = await axiosInstance.get('/order/list', { 
-          params: { ...params, storeSeq: selectedStoreSeq } 
+        response = await axiosInstance.get('/order/list', {
+          params: { ...params, storeSeq: selectedStoreSeq }
         });
         setOrders(response.data);
       }
@@ -57,11 +57,11 @@ export const useOrderLookup = () => {
       const response = await axiosInstance.get(`/order/list/${orderSeq}`);
       const detailData = response.data;
 
-      // For partner logins, map the company name to show the buyer's store name
+
       const { user_type } = authStore.getState();
       if (user_type === 'PARTNER' && detailData && detailData.orderInfo) {
         setOrders((currentOrders) => {
-          const matchingOrder = currentOrders.find(o => o.orderSeq === orderSeq);
+          const matchingOrder = currentOrders.find((o) => o.orderSeq === orderSeq);
           if (matchingOrder) {
             detailData.orderInfo.companyName = matchingOrder.companyName;
           }
@@ -81,6 +81,6 @@ export const useOrderLookup = () => {
     orderDetail,
     setOrderDetail,
     fetchOrders,
-    fetchOrderDetail,
+    fetchOrderDetail
   };
 };

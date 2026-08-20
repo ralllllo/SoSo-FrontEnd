@@ -1,19 +1,19 @@
 import StockPage from '../features/stock/StockPage';
-import StockStatusPage from '../features/stock/StockStatusPage';
+import StockStatusPage from '../features/stock/StockStatusPage';import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
 
-/**
- * @file stockRoutes.jsx
- * @description 재고 관리 도메인 전용 라우트 설정
- */
+
+
+
+
 const stockRoutes = [
-  {
-    path: '/stock',
-    element: <StockPage />,
-  },
-  {
-    path: '/stock-status',
-    element: <StockStatusPage />,
-  }
-];
+{
+  path: '/stock',
+  element: _jsxDEV(StockPage, {}, void 0, false)
+},
+{
+  path: '/stock-status',
+  element: _jsxDEV(StockStatusPage, {}, void 0, false)
+}];
+
 
 export default stockRoutes;

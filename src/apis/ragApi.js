@@ -4,8 +4,8 @@ export const askRag = async ({ message, storeSeq }) => {
   const response = await axiosInstance.get("/ai/chat", {
     params: {
       message,
-      storeSeq,
-    },
+      storeSeq
+    }
   });
 
   return response.data.answer;

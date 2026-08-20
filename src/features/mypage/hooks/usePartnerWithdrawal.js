@@ -3,26 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { withdrawMemberApi } from '../../../apis/memberApi';
 import authStore from '../../../store/authStore';
 
-/**
- * @file usePartnerWithdrawal.js
- * @description 회원 탈퇴 로직 처리를 위한 커스텀 훅 (Soft Delete 구현)
- */
+
+
+
+
 export const usePartnerWithdrawal = () => {
   const navigate = useNavigate();
   const logout = authStore((state) => state.logout);
-  
+
   const [reason, setReason] = useState('');
   const [customReason, setCustomReason] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const reasons = [
-    '서비스 이용이 불편해요',
-    '원하는 기능이 없어요',
-    '정보 보호를 위해 탈퇴하고 싶어요',
-    '거래처 정보가 변경되었어요',
-    '기타 (직접 입력)'
-  ];
+  '서비스 이용이 불편해요',
+  '원하는 기능이 없어요',
+  '정보 보호를 위해 탈퇴하고 싶어요',
+  '거래처 정보가 변경되었어요',
+  '기타 (직접 입력)'];
+
 
   const handleWithdrawal = async () => {
     if (!isChecked) {
@@ -41,19 +41,19 @@ export const usePartnerWithdrawal = () => {
     }
 
     const confirmResult = window.confirm('정말로 탈퇴하시겠습니까? 탈퇴 시 SoSo의 모든 서비스 이용이 중단됩니다.');
-    
+
     if (confirmResult) {
       setIsSubmitting(true);
       try {
         const withdrawReason = reason === '기타 (직접 입력)' ? customReason : reason;
-        
-        // 공용 withdrawMemberApi 호출
+
+
         const result = await withdrawMemberApi({ withdrawReason });
-        
+
         if (result.status === 'success' || result) {
           alert('그동안 SoSo를 이용해 주셔서 감사합니다. 회원 탈퇴가 완료되었습니다.');
-          
-          // 전역 상태 로그아웃 및 메인으로 이동
+
+
           logout();
           navigate('/');
         }

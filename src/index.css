@@ -40,7 +40,7 @@
     animation: scale-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
-  /* 스크롤바 숨기기 유틸리티 */
+  
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -49,7 +49,7 @@
     scrollbar-width: none;
   }
 
-  /* 실시간 알림용 커스텀 스크롤바 */
+  
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
   }
@@ -66,7 +66,7 @@
   }
 }
 
-/* 글로벌 인터랙티브 요소 마우스 포인터 강제 적용 */
+
 button, 
 a, 
 select, 
@@ -81,7 +81,7 @@ input[type="radio"],
   cursor: pointer !important;
 }
 
-/* 모든 버튼 요소에 마우스 호버 시 살짝의 투명도 변화 및 부드러운 전환 효과 기본 적용 (개별 hover 클래스가 없을 경우를 대비) */
+
 button {
   transition: all 0.2s ease-in-out;
 }

@@ -1,24 +1,24 @@
 import AccountManagementPage from '../features/account/AccountManagementPage';
 import AccountRegistrationPage from '../features/account/AccountRegistrationPage';
-import AccountListPage from '../features/account/AccountListPage';
+import AccountListPage from '../features/account/AccountListPage';import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
 
-/**
- * @file accountRoutes.jsx
- * @description 거래처 관리 도메인의 라우트 설정 파일입니다.
- */
+
+
+
+
 const accountRoutes = [
-  {
-    path: '/account/management', // 품목 관리 (메인)
-    element: <AccountManagementPage />,
-  },
-  {
-    path: '/account/register', // 거래처 등록
-    element: <AccountRegistrationPage />,
-  },
-  {
-    path: '/account/list', // 거래처 목록
-    element: <AccountListPage />,
-  },
-];
+{
+  path: '/account/management',
+  element: _jsxDEV(AccountManagementPage, {}, void 0, false)
+},
+{
+  path: '/account/register',
+  element: _jsxDEV(AccountRegistrationPage, {}, void 0, false)
+},
+{
+  path: '/account/list',
+  element: _jsxDEV(AccountListPage, {}, void 0, false)
+}];
+
 
 export default accountRoutes;

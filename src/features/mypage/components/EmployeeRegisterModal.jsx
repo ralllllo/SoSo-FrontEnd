@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react';import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
 
-/**
- * @file EmployeeRegisterModal.jsx
- * @description 신규 직원 등록을 위한 입력 모달 컴포넌트
- */
+
+
+
+
 const EmployeeRegisterModal = ({ isOpen, onClose, onRegister }) => {
   const [formData, setFormData] = useState({
     empName: '',
@@ -19,13 +19,13 @@ const EmployeeRegisterModal = ({ isOpen, onClose, onRegister }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // 에러 리셋
+
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: null }));
     }
   };
 
-  // 전화번호 자동 하이픈 포맷팅 헬퍼
+
   const handlePhoneChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, '');
     let formatted = value;
@@ -59,7 +59,7 @@ const EmployeeRegisterModal = ({ isOpen, onClose, onRegister }) => {
     e.preventDefault();
     if (!validate()) return;
 
-    // 백엔드 데이터에 전송하기 쉽도록 초(:00)를 덧붙여 전송 가능하게 설정
+
     const payload = {
       ...formData,
       workStartTime: formData.workStartTime + ':00',
@@ -68,7 +68,7 @@ const EmployeeRegisterModal = ({ isOpen, onClose, onRegister }) => {
 
     const success = await onRegister(payload);
     if (success) {
-      // 폼 리셋 및 닫기
+
       setFormData({
         empName: '',
         phone: '',
@@ -80,94 +80,94 @@ const EmployeeRegisterModal = ({ isOpen, onClose, onRegister }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden animate-fade-in border border-gray-100">
-        <div className="bg-emerald-500 px-6 py-4 flex justify-between items-center text-white">
-          <h3 className="font-bold text-lg">➕ 신규 직원 등록</h3>
-          <button onClick={onClose} className="text-white hover:text-emerald-100 text-xl font-bold cursor-pointer">
-            &times;
-          </button>
-        </div>
+    _jsxDEV("div", { className: "fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4", children:
+      _jsxDEV("div", { className: "bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden animate-fade-in border border-gray-100", children: [
+        _jsxDEV("div", { className: "bg-emerald-500 px-6 py-4 flex justify-between items-center text-white", children: [
+          _jsxDEV("h3", { className: "font-bold text-lg", children: "➕ 신규 직원 등록" }, void 0, false),
+          _jsxDEV("button", { onClick: onClose, className: "text-white hover:text-emerald-100 text-xl font-bold cursor-pointer", children: "×" }, void 0, false
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {/* 직원명 */}
-          <div>
-            <label className="block text-xs font-bold text-gray-500 mb-1">직원 이름 *</label>
-            <input
-              type="text"
-              name="empName"
-              value={formData.empName}
-              onChange={handleChange}
-              placeholder="예: 홍길동"
-              className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                errors.empName ? 'border-red-400' : 'border-gray-200'
-              }`}
-            />
-            {errors.empName && <p className="text-[10px] text-red-500 mt-1">{errors.empName}</p>}
-          </div>
+          )] }, void 0, true
+        ),
 
-          {/* 연락처 */}
-          <div>
-            <label className="block text-xs font-bold text-gray-500 mb-1">연락처 *</label>
-            <input
-              type="text"
-              name="phone"
-              maxLength="13"
-              value={formData.phone}
-              onChange={handlePhoneChange}
-              placeholder="010-XXXX-XXXX"
-              className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                errors.phone ? 'border-red-400' : 'border-gray-200'
-              }`}
-            />
-            {errors.phone && <p className="text-[10px] text-red-500 mt-1">{errors.phone}</p>}
-          </div>
+        _jsxDEV("form", { onSubmit: handleSubmit, className: "p-6 space-y-4", children: [
 
-          <div className="grid grid-cols-2 gap-4">
-            {/* 지정 출근 시각 */}
-            <div>
-              <label className="block text-xs font-bold text-gray-500 mb-1">출근 시간 *</label>
-              <input
-                type="time"
-                name="workStartTime"
-                value={formData.workStartTime}
-                onChange={handleChange}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              />
-            </div>
+          _jsxDEV("div", { children: [
+            _jsxDEV("label", { className: "block text-xs font-bold text-gray-500 mb-1", children: "직원 이름 *" }, void 0, false),
+            _jsxDEV("input", {
+              type: "text",
+              name: "empName",
+              value: formData.empName,
+              onChange: handleChange,
+              placeholder: "예: 홍길동",
+              className: `w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+              errors.empName ? 'border-red-400' : 'border-gray-200'}` }, void 0, false
 
-            {/* 지정 퇴근 시각 */}
-            <div>
-              <label className="block text-xs font-bold text-gray-500 mb-1">퇴근 시간 *</label>
-              <input
-                type="time"
-                name="workEndTime"
-                value={formData.workEndTime}
-                onChange={handleChange}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              />
-            </div>
-          </div>
+            ),
+            errors.empName && _jsxDEV("p", { className: "text-[10px] text-red-500 mt-1", children: errors.empName }, void 0, false)] }, void 0, true
+          ),
 
-          <div className="pt-4 border-t border-gray-50 flex gap-3">
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-bold hover:bg-gray-200 transition-all cursor-pointer"
-            >
-              취소
-            </button>
-            <button
-              type="submit"
-              className="flex-1 py-3 bg-emerald-500 text-white rounded-xl text-sm font-bold hover:bg-emerald-600 transition-all shadow-md shadow-emerald-100 cursor-pointer"
-            >
-              등록 완료
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+
+          _jsxDEV("div", { children: [
+            _jsxDEV("label", { className: "block text-xs font-bold text-gray-500 mb-1", children: "연락처 *" }, void 0, false),
+            _jsxDEV("input", {
+              type: "text",
+              name: "phone",
+              maxLength: "13",
+              value: formData.phone,
+              onChange: handlePhoneChange,
+              placeholder: "010-XXXX-XXXX",
+              className: `w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+              errors.phone ? 'border-red-400' : 'border-gray-200'}` }, void 0, false
+
+            ),
+            errors.phone && _jsxDEV("p", { className: "text-[10px] text-red-500 mt-1", children: errors.phone }, void 0, false)] }, void 0, true
+          ),
+
+          _jsxDEV("div", { className: "grid grid-cols-2 gap-4", children: [
+
+            _jsxDEV("div", { children: [
+              _jsxDEV("label", { className: "block text-xs font-bold text-gray-500 mb-1", children: "출근 시간 *" }, void 0, false),
+              _jsxDEV("input", {
+                type: "time",
+                name: "workStartTime",
+                value: formData.workStartTime,
+                onChange: handleChange,
+                className: "w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" }, void 0, false
+              )] }, void 0, true
+            ),
+
+
+            _jsxDEV("div", { children: [
+              _jsxDEV("label", { className: "block text-xs font-bold text-gray-500 mb-1", children: "퇴근 시간 *" }, void 0, false),
+              _jsxDEV("input", {
+                type: "time",
+                name: "workEndTime",
+                value: formData.workEndTime,
+                onChange: handleChange,
+                className: "w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" }, void 0, false
+              )] }, void 0, true
+            )] }, void 0, true
+          ),
+
+          _jsxDEV("div", { className: "pt-4 border-t border-gray-50 flex gap-3", children: [
+            _jsxDEV("button", {
+              type: "button",
+              onClick: onClose,
+              className: "flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-bold hover:bg-gray-200 transition-all cursor-pointer", children:
+              "취소" }, void 0, false
+
+            ),
+            _jsxDEV("button", {
+              type: "submit",
+              className: "flex-1 py-3 bg-emerald-500 text-white rounded-xl text-sm font-bold hover:bg-emerald-600 transition-all shadow-md shadow-emerald-100 cursor-pointer", children:
+              "등록 완료" }, void 0, false
+
+            )] }, void 0, true
+          )] }, void 0, true
+        )] }, void 0, true
+      ) }, void 0, false
+    ));
+
 };
 
 export default EmployeeRegisterModal;

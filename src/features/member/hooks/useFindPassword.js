@@ -2,82 +2,82 @@ import { useState } from 'react';
 import {
   findPasswordSendCodeApi,
   resetPasswordApi,
-  checkPasswordCodeApi,
-} from '../../../apis/loginApi';
+  checkPasswordCodeApi } from
+'../../../apis/loginApi';
 
-/**
- * @hook useFindPassword
- * @description 비밀번호 찾기 및 재설정 페이지의 비즈니스 로직을 관리하는 커스텀 훅입니다.
- */
+
+
+
+
 export const useFindPassword = () => {
-  // 입력 필드 데이터 상태
+
   const [formData, setFormData] = useState({
     userId: '',
     email: '',
     newPassword: '',
-    confirmPassword: '',
+    confirmPassword: ''
   });
 
-  // 에러 메시지 상태
+
   const [errors, setErrors] = useState({
     userId: '',
     email: '',
     verificationCode: '',
     newPassword: '',
-    confirmPassword: '',
+    confirmPassword: ''
   });
 
-  // 단계 및 상태 관리
+
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
   const [isResetStep, setIsResetStep] = useState(false);
 
-  /**
-   * @function handleInputChange
-   * @description 입력 시 상태값을 업데이트하고 에러를 초기화합니다.
-   */
+
+
+
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }));
 
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
-        [name]: '',
+        [name]: ''
       }));
     }
   };
 
-  /**
-   * @function handleVerificationCodeChange
-   * @description 인증번호 입력 시 상태값을 업데이트하고 에러를 초기화합니다.
-   */
+
+
+
+
   const handleVerificationCodeChange = (e) => {
     setVerificationCode(e.target.value);
 
     if (errors.verificationCode) {
       setErrors((prev) => ({
         ...prev,
-        verificationCode: '',
+        verificationCode: ''
       }));
     }
   };
 
-  /**
-   * @function handleSendCodeClick
-   * @description 인증번호 발송 버튼 클릭 시 유효성 검사를 수행합니다.
-   */
+
+
+
+
   const handleSendCodeClick = async () => {
     const newErrors = {
       userId: '',
       email: '',
       verificationCode: '',
       newPassword: '',
-      confirmPassword: '',
+      confirmPassword: ''
     };
 
     let hasError = false;
@@ -95,7 +95,7 @@ export const useFindPassword = () => {
     if (hasError) {
       setErrors((prev) => ({
         ...prev,
-        ...newErrors,
+        ...newErrors
       }));
       return;
     }
@@ -103,7 +103,7 @@ export const useFindPassword = () => {
     try {
       const resp = await findPasswordSendCodeApi({
         id: formData.userId,
-        email: formData.email,
+        email: formData.email
       });
 
       alert(resp.data || '인증번호가 이메일로 전송되었습니다.');
@@ -114,15 +114,15 @@ export const useFindPassword = () => {
     }
   };
 
-  /**
-   * @function handleVerifyConfirm
-   * @description 인증번호 확인 버튼 클릭 시 검증을 수행합니다.
-   */
+
+
+
+
   const handleVerifyConfirm = async () => {
     if (!verificationCode.trim()) {
       setErrors((prev) => ({
         ...prev,
-        verificationCode: '인증번호를 입력해주세요.',
+        verificationCode: '인증번호를 입력해주세요.'
       }));
       return;
     }
@@ -130,7 +130,7 @@ export const useFindPassword = () => {
     try {
       await checkPasswordCodeApi({
         email: formData.email,
-        code: verificationCode.trim(),
+        code: verificationCode.trim()
       });
 
       alert('인증되었습니다.');
@@ -142,22 +142,22 @@ export const useFindPassword = () => {
       setErrors((prev) => ({
         ...prev,
         verificationCode:
-          error.response?.data || '인증번호가 일치하지 않습니다.',
+        error.response?.data || '인증번호가 일치하지 않습니다.'
       }));
     }
   };
 
-  /**
-   * @function handleResetPasswordSubmit
-   * @description 새 비밀번호 저장 버튼 클릭 시 유효성 검사를 수행합니다.
-   */
+
+
+
+
   const handleResetPasswordSubmit = async () => {
     const newErrors = {
       userId: '',
       email: '',
       verificationCode: '',
       newPassword: '',
-      confirmPassword: '',
+      confirmPassword: ''
     };
 
     const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
@@ -180,15 +180,15 @@ export const useFindPassword = () => {
       hasError = true;
     } else if (!regex.test(formData.confirmPassword)) {
       newErrors.confirmPassword = '8자 이상, 영문+숫자+특수문자 조합이어야 합니다.';
-    }
-    else {
+    } else
+    {
       newErrors.confirmPassword = '비밀번호가 일치합니다.';
     }
 
     if (hasError) {
       setErrors((prev) => ({
         ...prev,
-        ...newErrors,
+        ...newErrors
       }));
       return false;
     }
@@ -197,7 +197,7 @@ export const useFindPassword = () => {
       await resetPasswordApi({
         id: formData.userId,
         email: formData.email,
-        newPassword: formData.newPassword,
+        newPassword: formData.newPassword
       });
 
       alert('비밀번호가 성공적으로 변경되었습니다. 로그인 페이지로 이동합니다.');
@@ -219,6 +219,6 @@ export const useFindPassword = () => {
     handleVerificationCodeChange,
     handleSendCodeClick,
     handleVerifyConfirm,
-    handleResetPasswordSubmit,
+    handleResetPasswordSubmit
   };
 };

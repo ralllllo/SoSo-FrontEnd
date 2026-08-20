@@ -2,29 +2,29 @@ import { useState, useEffect } from 'react';
 import { getRegisteredAccounts, deletePartnerAccount, getFirstStoreSeq, getAllPartners, registerPartnerAccount } from '../../../apis/accountApi';
 import authStore from '../../../store/authStore';
 
-/**
- * @file useAccountList.js
- * @description 거래처 목록 페이지의 비즈니스 로직을 담당하는 커스텀 훅입니다.
- */
+
+
+
+
 export const useAccountList = () => {
   const { user_seq, selectedStoreSeq } = authStore();
-  const [accounts, setAccounts] = useState([]); // 등록된 거래처
-  const [unregisteredAccounts, setUnregisteredAccounts] = useState([]); // 미등록 거래처
+  const [accounts, setAccounts] = useState([]);
+  const [unregisteredAccounts, setUnregisteredAccounts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // 필터 상태
+
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
 
-  // 등록 모달 상태
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPartner, setSelectedPartner] = useState(null);
   const [memo, setMemo] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
 
-  // 검색어 디바운싱 처리 (500ms)
+
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearchTerm(searchTerm), 500);
     return () => clearTimeout(timer);
@@ -52,7 +52,7 @@ export const useAccountList = () => {
         }
       }
 
-      // DB 저장 방식(다음 우편번호 API 기준)에 맞게 시/도 이름 매핑
+
       const getShortCityName = (city) => {
         const map = {
           "서울": "서울",
@@ -71,7 +71,7 @@ export const useAccountList = () => {
           "전남": "전남",
           "경북": "경북",
           "경남": "경남",
-          "제주": "제주",
+          "제주": "제주"
         };
         return map[city] || city;
       };
@@ -82,25 +82,25 @@ export const useAccountList = () => {
         district: selectedDistrict
       };
 
-      // 1. 등록된 거래처 목록 가져오기 (서버 사이드 필터링)
+
       const data = await getRegisteredAccounts(parseInt(businessSeq), params);
-      const formattedAccounts = data.results.map(item => ({
+      const formattedAccounts = data.results.map((item) => ({
         id: item.relationSeq,
         partnerSeq: item.partnerSeq,
         name: item.companyName,
         ceo: item.ceoName,
-        tel: '-', 
+        tel: '-',
         bizNum: item.bizNumber ? item.bizNumber.replace(/(\d{3})(\d{2})(\d{5})/, '$1-$2-$3') : '',
         address: `${item.address1} ${item.address2 || ''}`.trim(),
-        status: '거래중', 
+        status: '거래중',
         memo: item.memo,
         createdAt: item.createdAt
       }));
       setAccounts(formattedAccounts);
 
-      // 2. 전체 파트너사 목록 가져오기 (서버 사이드 필터링)
+
       const allData = await getAllPartners(params);
-      const allPartners = allData.results.map(item => ({
+      const allPartners = allData.results.map((item) => ({
         partnerSeq: item.storeSeq,
         name: item.companyName,
         ceo: item.ceoName,
@@ -108,9 +108,9 @@ export const useAccountList = () => {
         address: `${item.address1} ${item.address2 || ''}`.trim()
       }));
 
-      // 3. 미등록 거래처 계산 (전체 - 등록된)
-      const registeredPartnerSeqs = new Set(formattedAccounts.map(acc => acc.partnerSeq));
-      const unregistered = allPartners.filter(partner => !registeredPartnerSeqs.has(partner.partnerSeq));
+
+      const registeredPartnerSeqs = new Set(formattedAccounts.map((acc) => acc.partnerSeq));
+      const unregistered = allPartners.filter((partner) => !registeredPartnerSeqs.has(partner.partnerSeq));
       setUnregisteredAccounts(unregistered);
 
     } catch (error) {
@@ -120,20 +120,20 @@ export const useAccountList = () => {
     }
   };
 
-  // 필터가 변경될 때마다 fetchAccounts 호출
+
   useEffect(() => {
     fetchAccounts();
   }, [user_seq, selectedStoreSeq, debouncedSearchTerm, selectedCity, selectedDistrict]);
 
   const handleDeleteAccount = async (relationSeq, companyName) => {
     const confirmMessage = `[${companyName}] 거래처를 정말 삭제하시겠습니까?\n삭제 후에는 해당 거래처와의 연결이 즉시 해제됩니다.`;
-    
+
     if (window.confirm(confirmMessage)) {
       try {
         const result = await deletePartnerAccount(relationSeq);
         if (result.status === 'success') {
           alert('거래처가 성공적으로 삭제되었습니다.');
-          fetchAccounts(); // 목록 갱신
+          fetchAccounts();
         } else {
           alert(result.message || '삭제에 실패했습니다.');
         }
@@ -181,7 +181,7 @@ export const useAccountList = () => {
       if (result.status === 'success') {
         alert(result.message);
         handleCloseModal();
-        fetchAccounts(); // 등록 후 목록 갱신
+        fetchAccounts();
       } else {
         alert(result.message);
       }
@@ -192,10 +192,10 @@ export const useAccountList = () => {
     }
   };
 
-  return { 
-    accounts, 
-    unregisteredAccounts, 
-    isLoading, 
+  return {
+    accounts,
+    unregisteredAccounts,
+    isLoading,
     searchTerm,
     setSearchTerm,
     selectedCity,
